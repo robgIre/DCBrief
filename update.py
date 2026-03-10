@@ -26,29 +26,37 @@ TEMPLATE_FILE = "template.html"
 OUTPUT_FILE = "index.html"
 STATE_FILE = "state.json"
 
-# RSS feed sources
+# RSS feed sources — matching original Manus brief sources + extras
 RSS_FEEDS = [
+    # DC-specific (always relevant, no filtering needed)
     {"url": "https://www.datacenterdynamics.com/en/rss/", "name": "DatacenterDynamics"},
     {"url": "https://www.datacenterknowledge.com/rss.xml", "name": "Data Center Knowledge"},
-    {"url": "https://www.theregister.com/data_centre/headlines.atom", "name": "The Register"},
+    {"url": "https://datacenterfrontier.com/feed/", "name": "Datacenter Frontier"},
     {"url": "https://capacitymedia.com/feed/", "name": "Capacity Media"},
     {"url": "https://journal.uptimeinstitute.com/feed/", "name": "Uptime Institute"},
-    {"url": "https://datacenterfrontier.com/feed/", "name": "Datacenter Frontier"},
     {"url": "https://www.broadgroup.com/feed", "name": "BroadGroup"},
-    {"url": "https://www.datacentermap.com/feed/", "name": "DatacenterMap"},
-    {"url": "https://siliconangle.com/category/datacenter/feed/", "name": "SiliconANGLE"},
     {"url": "https://www.servethehome.com/feed/", "name": "ServeTheHome"},
-    {"url": "https://www.datacenters.com/news/rss", "name": "Datacenters.com"},
+    # Construction
     {"url": "https://www.constructiondive.com/feeds/news/", "name": "Construction Dive"},
+    {"url": "https://www.enr.com/rss/articles", "name": "ENR"},
+    # Tech news (filtered for DC/AI relevance)
+    {"url": "https://feeds.bloomberg.com/technology/news.rss", "name": "Bloomberg Technology"},
+    {"url": "https://techcrunch.com/feed/", "name": "TechCrunch"},
+    {"url": "https://www.theverge.com/rss/index.xml", "name": "The Verge"},
+    {"url": "https://feeds.arstechnica.com/arstechnica/technology-lab", "name": "Ars Technica"},
+    # Newsletters / analysis
+    {"url": "https://www.semianalysis.com/feed", "name": "SemiAnalysis"},
+    {"url": "https://www.techmeme.com/feed.xml", "name": "Techmeme"},
 ]
 
-# Podcast RSS feeds
+# Podcast RSS feeds (verified working — from original Manus brief)
 PODCAST_FEEDS = [
-    {"url": "https://feeds.megaphone.fm/ROAM7120986792", "name": "Utilizing Tech"},
-    {"url": "https://feeds.transistor.fm/data-center-podcast", "name": "Data Center Podcast"},
-    {"url": "https://feeds.megaphone.fm/datacenterworld", "name": "Data Center World"},
-    {"url": "https://anchor.fm/s/5e2a4f00/podcast/rss", "name": "DC Frontier Podcast"},
-    {"url": "https://www.spreaker.com/show/5765098/episodes/feed", "name": "Uptime Institute"},
+    {"url": "https://feeds.simplecast.com/l2i9YnTd", "name": "Hard Fork"},
+    {"url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/A91018A4-EA4F-4130-BF55-AE270180C327/44710ECC-10BB-48D1-93C7-AE270180C33E/podcast.rss", "name": "Bloomberg Technology"},
+    {"url": "https://utilizingtech.com/feed/", "name": "Utilizing Tech"},
+    {"url": "https://feeds.transistor.fm/oxide-and-friends", "name": "Oxide and Friends"},
+    {"url": "https://energytransitionshow.com/feed/podcast/", "name": "Energy Transition Show"},
+    {"url": "https://changelog.com/podcast/feed", "name": "The Changelog"},
 ]
 
 # Stock tickers to track
