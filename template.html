@@ -1097,32 +1097,110 @@
   </section>
   {% endif %}
 
-  <!-- PODCASTS -->
-  {% if podcasts %}
+  <!-- PODCASTS — CURATED STATIC LIST -->
   <section class="section">
     <div class="section-header">
-      <span class="section-label label-podcast">&#127911; Podcast Picks</span>
+      <span class="section-label label-podcast">&#127911; Your Morning Stack</span>
       <div class="section-rule"></div>
-      <span class="section-count">{{ podcasts|length }} episodes</span>
+      <span class="section-count">Short daily shows</span>
     </div>
     <div class="podcast-list anim-in">
-      {% for pod in podcasts %}
-      <a class="podcast-card" href="{{ pod.link }}" target="_blank" rel="noopener">
-        <div class="podcast-cover" style="background: linear-gradient(135deg, {{ pod.color_from }}, {{ pod.color_to }});">&#127897;</div>
+      <a class="podcast-card" href="https://dailytechheadlines.com/" target="_blank" rel="noopener">
+        <div class="podcast-cover" style="background: linear-gradient(135deg, #2563eb, #0891b2);">&#127897;</div>
         <div class="podcast-info">
-          <div class="podcast-show">{{ pod.show }}</div>
-          <div class="podcast-title">{{ pod.title }}</div>
-          <div class="podcast-desc">{{ pod.summary }}</div>
+          <div class="podcast-show">Daily Tech Headlines</div>
+          <div class="podcast-title">Tom Merritt's daily tech news roundup</div>
+          <div class="podcast-desc">Quick-fire summary of the top tech stories every weekday morning.</div>
         </div>
         <div class="podcast-actions">
-          {% if pod.duration %}<span class="podcast-duration">{{ pod.duration }}</span>{% endif %}
-          <button class="play-btn" title="Play">&#9654;</button>
+          <span class="podcast-duration">~10 min</span>
+          <span class="podcast-duration">Weekdays</span>
         </div>
       </a>
-      {% endfor %}
+      <a class="podcast-card" href="https://www.aidailypodcast.com/" target="_blank" rel="noopener">
+        <div class="podcast-cover" style="background: linear-gradient(135deg, #7c3aed, #6366f1);">&#129302;</div>
+        <div class="podcast-info">
+          <div class="podcast-show">The AI Daily Brief</div>
+          <div class="podcast-title">NLW's daily AI industry update</div>
+          <div class="podcast-desc">What's happening in AI — models, infrastructure, and the business side.</div>
+        </div>
+        <div class="podcast-actions">
+          <span class="podcast-duration">~12 min</span>
+          <span class="podcast-duration">Daily</span>
+        </div>
+      </a>
+      <a class="podcast-card" href="https://www.wsj.com/podcasts/tech-news-briefing" target="_blank" rel="noopener">
+        <div class="podcast-cover" style="background: linear-gradient(135deg, #1a1a1a, #4a4a4a);">&#128240;</div>
+        <div class="podcast-info">
+          <div class="podcast-show">WSJ Tech News Briefing</div>
+          <div class="podcast-title">Wall Street Journal tech coverage</div>
+          <div class="podcast-desc">Business-focused tech news from WSJ reporters, covering deals and market moves.</div>
+        </div>
+        <div class="podcast-actions">
+          <span class="podcast-duration">~10 min</span>
+          <span class="podcast-duration">Weekdays</span>
+        </div>
+      </a>
+      <a class="podcast-card" href="https://www.bloomberg.com/podcasts/decrypted" target="_blank" rel="noopener">
+        <div class="podcast-cover" style="background: linear-gradient(135deg, #16a34a, #0d9488);">&#128200;</div>
+        <div class="podcast-info">
+          <div class="podcast-show">Bloomberg Technology</div>
+          <div class="podcast-title">Bloomberg's daily tech podcast</div>
+          <div class="podcast-desc">Global tech news, markets, and the companies shaping the industry.</div>
+        </div>
+        <div class="podcast-actions">
+          <span class="podcast-duration">~15 min</span>
+          <span class="podcast-duration">Weekdays</span>
+        </div>
+      </a>
     </div>
   </section>
-  {% endif %}
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-podcast">&#128218; This Week's Deep Dives</span>
+      <div class="section-rule"></div>
+      <span class="section-count">Longer listens</span>
+    </div>
+    <div class="podcast-list anim-in">
+      <a class="podcast-card" href="https://datacenterfrontier.com/podcasts/" target="_blank" rel="noopener">
+        <div class="podcast-cover" style="background: linear-gradient(135deg, #e11d48, #ec4899);">&#127981;</div>
+        <div class="podcast-info">
+          <div class="podcast-show">Data Center Frontier Show</div>
+          <div class="podcast-title">Deep dives into DC construction, power &amp; operations</div>
+          <div class="podcast-desc">Industry leaders discuss data centre design, construction, and the latest infrastructure trends.</div>
+        </div>
+        <div class="podcast-actions">
+          <span class="podcast-duration">30-60 min</span>
+          <span class="podcast-duration">Bi-weekly</span>
+        </div>
+      </a>
+      <a class="podcast-card" href="https://www.nytimes.com/column/hard-fork" target="_blank" rel="noopener">
+        <div class="podcast-cover" style="background: linear-gradient(135deg, #d97706, #ea580c);">&#9889;</div>
+        <div class="podcast-info">
+          <div class="podcast-show">Hard Fork</div>
+          <div class="podcast-title">NYT's weekly AI &amp; tech deep dive</div>
+          <div class="podcast-desc">Kevin Roose and Casey Newton unpack the biggest stories in AI, tech, and Silicon Valley.</div>
+        </div>
+        <div class="podcast-actions">
+          <span class="podcast-duration">45-60 min</span>
+          <span class="podcast-duration">Weekly</span>
+        </div>
+      </a>
+      <a class="podcast-card" href="https://www.acquired.fm/" target="_blank" rel="noopener">
+        <div class="podcast-cover" style="background: linear-gradient(135deg, #0891b2, #2563eb);">&#127942;</div>
+        <div class="podcast-info">
+          <div class="podcast-show">Acquired</div>
+          <div class="podcast-title">The greatest technology stories of all time</div>
+          <div class="podcast-desc">Ben Gilbert and David Rosenthal do deep-dive episodes on tech companies, deals, and strategy.</div>
+        </div>
+        <div class="podcast-actions">
+          <span class="podcast-duration">2-3 hrs</span>
+          <span class="podcast-duration">Bi-weekly</span>
+        </div>
+      </a>
+    </div>
+  </section>
 
 </main>
 

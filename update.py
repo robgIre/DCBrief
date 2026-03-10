@@ -49,15 +49,7 @@ RSS_FEEDS = [
     {"url": "https://www.techmeme.com/feed.xml", "name": "Techmeme"},
 ]
 
-# Podcast RSS feeds (verified working — from original Manus brief)
-PODCAST_FEEDS = [
-    {"url": "https://feeds.simplecast.com/l2i9YnTd", "name": "Hard Fork"},
-    {"url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/A91018A4-EA4F-4130-BF55-AE270180C327/44710ECC-10BB-48D1-93C7-AE270180C33E/podcast.rss", "name": "Bloomberg Technology"},
-    {"url": "https://utilizingtech.com/feed/", "name": "Utilizing Tech"},
-    {"url": "https://feeds.transistor.fm/oxide-and-friends", "name": "Oxide and Friends"},
-    {"url": "https://energytransitionshow.com/feed/podcast/", "name": "Energy Transition Show"},
-    {"url": "https://changelog.com/podcast/feed", "name": "The Changelog"},
-]
+# Podcast section is static/curated in the template — no RSS fetching needed
 
 # Stock tickers to track
 STOCK_TICKERS = [
@@ -65,14 +57,7 @@ STOCK_TICKERS = [
     "GOOGL", "MSFT", "AMZN", "NVDA", "META",  # Hyperscalers
 ]
 
-# Podcast cover colours (rotating)
-PODCAST_COLORS = [
-    ("#e11d48", "#ec4899"),
-    ("#2563eb", "#0891b2"),
-    ("#16a34a", "#0d9488"),
-    ("#d97706", "#ea580c"),
-    ("#7c3aed", "#6366f1"),
-]
+# Podcast cover colours not needed — podcasts are static in template
 
 # ---------------------------------------------------------------------------
 # META SUPPLIERS — tracked for dedicated "Supplier Watch" section
@@ -333,56 +318,6 @@ def fetch_rss_feeds():
     return articles
 
 
-def fetch_podcasts():
-    """Fetch podcast episodes from RSS feeds."""
-    episodes = []
-    for i, feed_info in enumerate(PODCAST_FEEDS):
-        try:
-            print(f"  Fetching podcast: {feed_info['name']}...")
-            feed = feedparser.parse(feed_info["url"])
-            for entry in feed.entries[:2]:  # latest 2 per podcast
-                title = clean_html(entry.get("title", ""))
-                summary = clean_html(
-                    entry.get("summary", entry.get("description", ""))
-                )
-                link = entry.get("link", "")
-                duration = entry.get("itunes_duration", "")
-
-                if not title:
-                    continue
-
-                # Format duration
-                if duration:
-                    try:
-                        if ":" in str(duration):
-                            parts = str(duration).split(":")
-                            if len(parts) == 3:
-                                mins = int(parts[0]) * 60 + int(parts[1])
-                            else:
-                                mins = int(parts[0])
-                            duration = f"{mins} min"
-                        else:
-                            mins = int(duration) // 60
-                            duration = f"{mins} min"
-                    except (ValueError, TypeError):
-                        duration = ""
-
-                colors = PODCAST_COLORS[i % len(PODCAST_COLORS)]
-                episodes.append({
-                    "title": escape(title),
-                    "summary": escape(summary),
-                    "link": link,
-                    "show": feed_info["name"],
-                    "duration": duration,
-                    "color_from": colors[0],
-                    "color_to": colors[1],
-                })
-        except Exception as e:
-            print(f"  Warning: Failed to fetch podcast {feed_info['name']}: {e}")
-
-    return episodes[:6]  # max 6 podcast episodes
-
-
 def fetch_stock_data():
     """Fetch current stock prices for tracked tickers."""
     markets = []
@@ -551,7 +486,7 @@ def categorise_articles(articles):
 # HTML GENERATION
 # ---------------------------------------------------------------------------
 
-def generate_html(categories, markets, podcasts, edition_number):
+def generate_html(categories, markets, edition_number):
     """Render the Jinja2 template with live data."""
     now = datetime.now(timezone.utc)
 
@@ -578,7 +513,6 @@ def generate_html(categories, markets, podcasts, edition_number):
         "update_time": now.strftime("%H:%M"),
         "update_date": now.strftime("%d %b"),
         **categories,
-        "podcasts": podcasts,
     }
 
     env = Environment(
@@ -602,7 +536,6 @@ def generate_html(categories, markets, podcasts, edition_number):
     print(f"  Meta news: {len(categories['meta_news'])}")
     print(f"  Supplier mentions: {len(categories['supplier_news'])}")
     print(f"  Industry news: {len(categories['industry_news'])}")
-    print(f"  Podcasts: {len(podcasts)}")
     print(f"  Market tickers: {len(markets)}")
 
 
@@ -625,11 +558,8 @@ def main():
     articles = fetch_rss_feeds()
     print(f"  Found {len(articles)} articles total")
 
-    print("\n[2/3] Fetching market data...")
+    print("\n[2/2] Fetching market data...")
     markets = fetch_stock_data()
-
-    print("\n[3/3] Fetching podcasts...")
-    podcasts = fetch_podcasts()
 
     # Categorise
     print("\nCategorising articles...")
@@ -637,7 +567,7 @@ def main():
 
     # Generate HTML
     print("\nGenerating HTML...")
-    generate_html(categories, markets, podcasts, state["edition"])
+    generate_html(categories, markets, state["edition"])
 
     # Save state
     save_state(state)
