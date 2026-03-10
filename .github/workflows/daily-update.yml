@@ -31,5 +31,5 @@ name: Daily DC Brief Update
             git config user.name "DC Brief Bot"
             git config user.email "dcbrief-bot@users.noreply.github.com"
             git add index.html state.json
-            git diff --staged --quiet || git commit -m "Daily brief update — $(date -u +'%A, %B %d %Y')"
+            git diff --staged --quiet || git commit -m "Daily brief update"
             git push
