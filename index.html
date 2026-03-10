@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Light mode defaults */
     --bg-body: #f6f5f0;
     --bg-surface: #ffffff;
     --bg-surface-alt: #faf9f6;
@@ -34,7 +33,6 @@
     --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
     --radius: 8px;
   }
-
   [data-theme="dark"] {
     --bg-body: #0f1117;
     --bg-surface: #1a1d27;
@@ -51,9 +49,7 @@
     --shadow-card: 0 1px 3px rgba(0,0,0,0.3);
     --shadow-card-hover: 0 8px 24px rgba(0,0,0,0.4);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg-body);
@@ -62,12 +58,11 @@
     -webkit-font-smoothing: antialiased;
     transition: background 0.3s, color 0.3s;
   }
-
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
 
-  /* ==================== MARKETS TICKER ==================== */
+  /* MARKETS TICKER */
   .markets-bar {
     background: var(--bg-ticker);
     height: 36px;
@@ -76,7 +71,6 @@
     overflow: hidden;
     border-bottom: 1px solid rgba(255,255,255,0.06);
   }
-
   .markets-label {
     flex-shrink: 0;
     font-size: 10px;
@@ -91,18 +85,12 @@
     display: flex;
     align-items: center;
   }
-
-  .markets-track-wrapper {
-    overflow: hidden;
-    flex: 1;
-  }
-
+  .markets-track-wrapper { overflow: hidden; flex: 1; }
   .markets-track {
     display: flex;
     animation: scrollMarkets 40s linear infinite;
     white-space: nowrap;
   }
-
   .market-item {
     flex-shrink: 0;
     padding: 0 24px;
@@ -113,28 +101,21 @@
     align-items: center;
     gap: 8px;
   }
-
-  .market-symbol {
-    font-weight: 600;
-    color: rgba(255,255,255,0.95);
-  }
-
+  .market-symbol { font-weight: 600; color: rgba(255,255,255,0.95); }
   .market-price { color: rgba(255,255,255,0.6); }
   .market-change { font-weight: 500; font-size: 11px; }
   .market-change.up { color: #4ade80; }
   .market-change.down { color: #f87171; }
-
   @keyframes scrollMarkets {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
 
-  /* ==================== HEADER / MASTHEAD ==================== */
+  /* HEADER / MASTHEAD */
   .header {
     background: var(--bg-surface);
     border-bottom: 1px solid var(--border-main);
   }
-
   .header-toolbar {
     max-width: 960px;
     margin: 0 auto;
@@ -145,7 +126,6 @@
     font-size: 13px;
     color: var(--text-secondary);
   }
-
   .edition-no {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
@@ -153,13 +133,7 @@
     letter-spacing: 1px;
     color: var(--text-muted);
   }
-
-  .toolbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
+  .toolbar-actions { display: flex; align-items: center; gap: 6px; }
   .toolbar-btn {
     display: flex;
     align-items: center;
@@ -175,32 +149,20 @@
     transition: all 0.2s;
     font-family: inherit;
   }
-
-  .toolbar-btn:hover {
-    background: var(--bg-inset);
-    color: var(--text-headline);
-  }
-
-  .toolbar-btn.theme-toggle {
-    width: 34px;
-    padding: 6px;
-    justify-content: center;
-  }
-
+  .toolbar-btn:hover { background: var(--bg-inset); color: var(--text-headline); }
+  .toolbar-btn.theme-toggle { width: 34px; padding: 6px; justify-content: center; }
   .masthead {
     max-width: 960px;
     margin: 0 auto;
     padding: 40px 32px 32px;
     text-align: center;
   }
-
   .masthead-rule {
     height: 4px;
     background: var(--text-headline);
     margin-bottom: 24px;
     position: relative;
   }
-
   .masthead-rule::after {
     content: '';
     position: absolute;
@@ -210,7 +172,6 @@
     height: 1px;
     background: var(--text-headline);
   }
-
   .masthead-title {
     font-family: 'Playfair Display', 'Georgia', serif;
     font-size: clamp(42px, 7vw, 72px);
@@ -220,7 +181,6 @@
     line-height: 1;
     margin-bottom: 8px;
   }
-
   .masthead-subtitle {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
@@ -230,7 +190,6 @@
     text-transform: uppercase;
     margin-bottom: 20px;
   }
-
   .masthead-date {
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
@@ -242,7 +201,6 @@
     letter-spacing: 2px;
     text-transform: uppercase;
   }
-
   .masthead-greeting {
     font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
     font-style: italic;
@@ -250,14 +208,7 @@
     color: var(--text-secondary);
     margin-top: 20px;
   }
-
-  /* View toggle */
-  .view-toggle-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 24px;
-  }
-
+  .view-toggle-container { display: flex; justify-content: center; margin-top: 24px; }
   .view-toggle {
     display: inline-flex;
     background: var(--bg-inset);
@@ -265,7 +216,6 @@
     padding: 4px;
     border: 1px solid var(--border-main);
   }
-
   .view-btn {
     padding: 8px 20px;
     font-size: 13px;
@@ -281,14 +231,12 @@
     align-items: center;
     gap: 6px;
   }
-
   .view-btn.active {
     background: var(--bg-surface);
     color: var(--text-headline);
     box-shadow: var(--shadow-card);
     font-weight: 600;
   }
-
   .masthead-rule-bottom {
     max-width: 960px;
     margin: 0 auto;
@@ -296,7 +244,6 @@
     background: var(--text-headline);
     position: relative;
   }
-
   .masthead-rule-bottom::after {
     content: '';
     position: absolute;
@@ -307,25 +254,15 @@
     background: var(--border-rule);
   }
 
-  /* ==================== MAIN CONTENT ==================== */
-  .main {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 40px 32px;
-  }
-
-  /* ---- SECTION ---- */
-  .section {
-    margin-bottom: 56px;
-  }
-
+  /* MAIN */
+  .main { max-width: 960px; margin: 0 auto; padding: 40px 32px; }
+  .section { margin-bottom: 56px; }
   .section-header {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 24px;
   }
-
   .section-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
@@ -336,27 +273,21 @@
     border-radius: 4px;
     flex-shrink: 0;
   }
-
   .label-top { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
   .label-deals { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
   .label-land { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
   .label-meta { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+  .label-supplier { background: #fdf4ff; color: #a855f7; border: 1px solid #e9d5ff; }
   .label-podcast { background: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe; }
   .label-news { background: #ecfeff; color: #0891b2; border: 1px solid #a5f3fc; }
-
   [data-theme="dark"] .label-top { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.25); }
   [data-theme="dark"] .label-deals { background: rgba(22,163,74,0.12); border-color: rgba(22,163,74,0.25); }
   [data-theme="dark"] .label-land { background: rgba(217,119,6,0.12); border-color: rgba(217,119,6,0.25); }
   [data-theme="dark"] .label-meta { background: rgba(37,99,235,0.12); border-color: rgba(37,99,235,0.25); }
+  [data-theme="dark"] .label-supplier { background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.25); }
   [data-theme="dark"] .label-podcast { background: rgba(124,58,237,0.12); border-color: rgba(124,58,237,0.25); }
   [data-theme="dark"] .label-news { background: rgba(8,145,178,0.12); border-color: rgba(8,145,178,0.25); }
-
-  .section-rule {
-    flex: 1;
-    height: 1px;
-    background: var(--border-rule);
-  }
-
+  .section-rule { flex: 1; height: 1px; background: var(--border-rule); }
   .section-count {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
@@ -364,7 +295,7 @@
     flex-shrink: 0;
   }
 
-  /* ---- STATS STRIP ---- */
+  /* STATS STRIP */
   .stats-strip {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -375,18 +306,13 @@
     overflow: hidden;
     margin-bottom: 56px;
   }
-
   .stat-cell {
     background: var(--bg-surface);
     padding: 20px 24px;
     text-align: center;
     transition: background 0.2s;
   }
-
-  .stat-cell:hover {
-    background: var(--bg-surface-alt);
-  }
-
+  .stat-cell:hover { background: var(--bg-surface-alt); }
   .stat-label {
     font-size: 10px;
     text-transform: uppercase;
@@ -395,7 +321,6 @@
     font-weight: 600;
     margin-bottom: 6px;
   }
-
   .stat-value {
     font-family: 'JetBrains Mono', monospace;
     font-size: 26px;
@@ -403,18 +328,11 @@
     color: var(--text-headline);
     letter-spacing: -1px;
   }
-
-  .stat-delta {
-    font-size: 11px;
-    font-weight: 500;
-    margin-top: 4px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
+  .stat-delta { font-size: 11px; font-weight: 500; margin-top: 4px; font-family: 'JetBrains Mono', monospace; }
   .delta-up { color: var(--accent-green); }
   .delta-down { color: var(--accent-red); }
 
-  /* ---- HERO STORY ---- */
+  /* HERO STORY */
   .hero-story {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -422,7 +340,6 @@
     margin-bottom: 24px;
     align-items: center;
   }
-
   .hero-image {
     width: 100%;
     aspect-ratio: 4/3;
@@ -436,7 +353,6 @@
     border: 1px solid var(--border-main);
     position: relative;
   }
-
   .hero-image::after {
     content: 'FEATURED';
     position: absolute;
@@ -451,9 +367,6 @@
     border-radius: 4px;
     font-family: 'JetBrains Mono', monospace;
   }
-
-  .hero-content {}
-
   .hero-tag {
     font-size: 11px;
     font-weight: 600;
@@ -462,7 +375,6 @@
     color: var(--accent-red);
     margin-bottom: 12px;
   }
-
   .hero-headline {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 30px;
@@ -472,14 +384,12 @@
     margin-bottom: 16px;
     letter-spacing: -0.5px;
   }
-
   .hero-excerpt {
     font-size: 15px;
     color: var(--text-secondary);
     line-height: 1.7;
     margin-bottom: 16px;
   }
-
   .story-meta {
     display: flex;
     align-items: center;
@@ -487,48 +397,28 @@
     font-size: 12px;
     color: var(--text-muted);
   }
+  .story-source { font-weight: 600; color: var(--text-secondary); }
+  .story-meta a { color: inherit; text-decoration: none; }
+  .story-meta a:hover { color: var(--accent-blue); }
+  .meta-divider { width: 3px; height: 3px; border-radius: 50%; background: var(--text-muted); }
 
-  .story-source {
-    font-weight: 600;
-    color: var(--text-secondary);
-  }
-
-  .meta-divider {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: var(--text-muted);
-  }
-
-  /* ---- NEWS LIST ---- */
-  .news-list {
-    display: flex;
-    flex-direction: column;
-  }
-
+  /* NEWS LIST */
+  .news-list { display: flex; flex-direction: column; }
   .news-item {
     display: grid;
     grid-template-columns: auto 1fr auto;
     gap: 20px;
-    padding: 20px 0;
+    padding: 20px 16px;
     border-bottom: 1px solid var(--border-light);
     align-items: start;
     cursor: pointer;
     transition: background 0.15s;
-    margin: 0 -16px;
-    padding-left: 16px;
-    padding-right: 16px;
     border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
   }
-
-  .news-item:hover {
-    background: var(--bg-surface-alt);
-  }
-
-  .news-item:last-child {
-    border-bottom: none;
-  }
-
+  .news-item:hover { background: var(--bg-surface-alt); }
+  .news-item:last-child { border-bottom: none; }
   .news-number {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 32px;
@@ -539,9 +429,6 @@
     text-align: center;
     padding-top: 2px;
   }
-
-  .news-body {}
-
   .news-tag {
     font-size: 10px;
     font-weight: 600;
@@ -552,23 +439,22 @@
     padding: 2px 8px;
     border-radius: 3px;
   }
-
   .tag-breaking { background: #fef2f2; color: #dc2626; }
   .tag-deals { background: #f0fdf4; color: #16a34a; }
   .tag-land { background: #fffbeb; color: #d97706; }
   .tag-meta-partner { background: #eff6ff; color: #2563eb; }
+  .tag-supplier { background: #fdf4ff; color: #a855f7; }
   .tag-infra { background: #ecfeff; color: #0891b2; }
   .tag-energy { background: #fefce8; color: #a16207; }
   .tag-sustainability { background: #f0fdf4; color: #15803d; }
-
   [data-theme="dark"] .tag-breaking { background: rgba(220,38,38,0.15); }
   [data-theme="dark"] .tag-deals { background: rgba(22,163,74,0.15); }
   [data-theme="dark"] .tag-land { background: rgba(217,119,6,0.15); }
   [data-theme="dark"] .tag-meta-partner { background: rgba(37,99,235,0.15); }
+  [data-theme="dark"] .tag-supplier { background: rgba(168,85,247,0.15); }
   [data-theme="dark"] .tag-infra { background: rgba(8,145,178,0.15); }
   [data-theme="dark"] .tag-energy { background: rgba(254,252,232,0.1); color: #fbbf24; }
   [data-theme="dark"] .tag-sustainability { background: rgba(22,163,74,0.15); }
-
   .news-headline {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 18px;
@@ -577,7 +463,6 @@
     line-height: 1.3;
     margin-bottom: 6px;
   }
-
   .news-snippet {
     font-size: 14px;
     color: var(--text-secondary);
@@ -587,7 +472,6 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
   .news-time {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
@@ -596,19 +480,14 @@
     padding-top: 4px;
   }
 
-  /* ---- DEALS TABLE ---- */
+  /* DEALS TABLE */
   .deals-wrapper {
     background: var(--bg-surface);
     border: 1px solid var(--border-main);
     border-radius: var(--radius);
     overflow: hidden;
   }
-
-  .deals-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
+  .deals-table { width: 100%; border-collapse: collapse; }
   .deals-table thead th {
     font-size: 10px;
     text-transform: uppercase;
@@ -621,22 +500,15 @@
     background: var(--bg-surface-alt);
     white-space: nowrap;
   }
-
   .deals-table tbody tr {
     border-bottom: 1px solid var(--border-light);
     transition: background 0.15s;
     cursor: pointer;
   }
-
   .deals-table tbody tr:last-child { border-bottom: none; }
   .deals-table tbody tr:hover { background: var(--bg-surface-alt); }
-
-  .deals-table td {
-    padding: 16px 20px;
-    font-size: 14px;
-    vertical-align: middle;
-  }
-
+  .deals-table td { padding: 16px 20px; font-size: 14px; vertical-align: middle; }
+  .deals-table a { color: inherit; text-decoration: none; }
   .deal-parties {
     font-weight: 600;
     color: var(--text-headline);
@@ -644,15 +516,12 @@
     align-items: center;
     gap: 8px;
   }
-
   .deal-arrow { color: var(--text-muted); font-size: 11px; }
-
   .deal-value {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 600;
     color: var(--accent-green);
   }
-
   .deal-status {
     font-size: 11px;
     font-weight: 600;
@@ -662,29 +531,16 @@
     align-items: center;
     gap: 5px;
   }
-
   .status-active { background: #f0fdf4; color: #16a34a; }
   .status-pending { background: #fffbeb; color: #d97706; }
   .status-closed { background: #eff6ff; color: #2563eb; }
   .status-rumoured { background: #f5f3ff; color: #7c3aed; }
-
   [data-theme="dark"] .status-active { background: rgba(22,163,74,0.12); }
   [data-theme="dark"] .status-pending { background: rgba(217,119,6,0.12); }
   [data-theme="dark"] .status-closed { background: rgba(37,99,235,0.12); }
   [data-theme="dark"] .status-rumoured { background: rgba(124,58,237,0.12); }
-
-  .deal-type {
-    font-size: 12px;
-    color: var(--text-secondary);
-  }
-
-  .filter-bar {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-  }
-
+  .deal-type { font-size: 12px; color: var(--text-secondary); }
+  .filter-bar { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
   .filter-tab {
     padding: 5px 14px;
     border-radius: 20px;
@@ -697,17 +553,11 @@
     transition: all 0.2s;
     font-family: inherit;
   }
-
   .filter-tab:hover { border-color: var(--text-muted); color: var(--text-headline); }
   .filter-tab.active { background: var(--text-headline); color: var(--bg-surface); border-color: var(--text-headline); }
 
-  /* ---- LAND ACQUISITIONS ---- */
-  .land-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
+  /* LAND CARDS */
+  .land-list { display: flex; flex-direction: column; gap: 12px; }
   .land-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-main);
@@ -719,22 +569,11 @@
     align-items: center;
     cursor: pointer;
     transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
   }
-
-  .land-card:hover {
-    border-color: var(--accent-amber);
-    box-shadow: var(--shadow-card-hover);
-    transform: translateY(-1px);
-  }
-
-  .land-flag {
-    font-size: 32px;
-    text-align: center;
-    line-height: 1;
-  }
-
-  .land-info {}
-
+  .land-card:hover { border-color: var(--accent-amber); box-shadow: var(--shadow-card-hover); transform: translateY(-1px); }
+  .land-flag { font-size: 32px; text-align: center; line-height: 1; }
   .land-location {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 16px;
@@ -742,37 +581,58 @@
     color: var(--text-headline);
     margin-bottom: 2px;
   }
+  .land-detail { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .land-specs { display: flex; flex-direction: column; gap: 4px; text-align: right; }
+  .land-spec { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); }
+  .land-spec strong { color: var(--text-headline); }
 
-  .land-detail {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.5;
+  /* SUPPLIER CARDS */
+  .supplier-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .supplier-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
   }
-
-  .land-specs {
+  .supplier-card:hover { border-color: var(--accent-violet); box-shadow: var(--shadow-card-hover); transform: translateY(-1px); }
+  .supplier-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .supplier-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-    text-align: right;
-  }
-
-  .land-spec {
-    font-family: 'JetBrains Mono', monospace;
+    align-items: center;
+    justify-content: center;
     font-size: 12px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #a855f7, #6366f1);
+  }
+  .supplier-name { font-size: 14px; font-weight: 600; color: var(--text-headline); }
+  .supplier-scope {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     color: var(--text-muted);
+    font-weight: 600;
   }
-
-  .land-spec strong {
+  .supplier-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 15px;
+    font-weight: 600;
     color: var(--text-headline);
+    line-height: 1.3;
+    margin-bottom: 6px;
   }
+  .supplier-snippet { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
 
-  /* ---- META PARTNERS ---- */
-  .partners-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
+  /* PARTNER CARDS */
+  .partners-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .partner-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-main);
@@ -783,14 +643,10 @@
     cursor: pointer;
     transition: all 0.2s;
     position: relative;
+    text-decoration: none;
+    color: inherit;
   }
-
-  .partner-card:hover {
-    border-color: var(--accent-blue);
-    box-shadow: var(--shadow-card-hover);
-    transform: translateY(-1px);
-  }
-
+  .partner-card:hover { border-color: var(--accent-blue); box-shadow: var(--shadow-card-hover); transform: translateY(-1px); }
   .partner-icon {
     width: 44px;
     height: 44px;
@@ -803,16 +659,7 @@
     color: white;
     flex-shrink: 0;
   }
-
-  .partner-info { flex: 1; }
-
-  .partner-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-headline);
-    margin-bottom: 2px;
-  }
-
+  .partner-name { font-size: 15px; font-weight: 600; color: var(--text-headline); margin-bottom: 2px; }
   .partner-role {
     font-size: 11px;
     color: var(--text-muted);
@@ -820,13 +667,7 @@
     letter-spacing: 0.5px;
     margin-bottom: 8px;
   }
-
-  .partner-update {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
+  .partner-update { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
   .partner-pulse {
     position: absolute;
     top: 16px;
@@ -836,7 +677,6 @@
     border-radius: 50%;
     background: var(--accent-green);
   }
-
   .partner-pulse::after {
     content: '';
     position: absolute;
@@ -846,19 +686,13 @@
     animation: pulse 2s ease-out infinite;
     opacity: 0;
   }
-
   @keyframes pulse {
     0% { transform: scale(1); opacity: 0.5; }
     100% { transform: scale(2.5); opacity: 0; }
   }
 
-  /* ---- PODCASTS ---- */
-  .podcast-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
+  /* PODCASTS */
+  .podcast-list { display: flex; flex-direction: column; gap: 12px; }
   .podcast-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-main);
@@ -870,14 +704,10 @@
     align-items: center;
     cursor: pointer;
     transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
   }
-
-  .podcast-card:hover {
-    border-color: var(--accent-violet);
-    box-shadow: var(--shadow-card-hover);
-    transform: translateY(-1px);
-  }
-
+  .podcast-card:hover { border-color: var(--accent-violet); box-shadow: var(--shadow-card-hover); transform: translateY(-1px); }
   .podcast-cover {
     width: 52px;
     height: 52px;
@@ -888,9 +718,6 @@
     font-size: 22px;
     flex-shrink: 0;
   }
-
-  .podcast-info {}
-
   .podcast-show {
     font-size: 10px;
     text-transform: uppercase;
@@ -899,7 +726,6 @@
     font-weight: 600;
     margin-bottom: 3px;
   }
-
   .podcast-title {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 16px;
@@ -908,7 +734,6 @@
     line-height: 1.3;
     margin-bottom: 4px;
   }
-
   .podcast-desc {
     font-size: 13px;
     color: var(--text-secondary);
@@ -917,19 +742,12 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
-  .podcast-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
+  .podcast-actions { display: flex; align-items: center; gap: 12px; }
   .podcast-duration {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     color: var(--text-muted);
   }
-
   .play-btn {
     width: 40px;
     height: 40px;
@@ -945,69 +763,51 @@
     font-size: 14px;
     flex-shrink: 0;
   }
+  .play-btn:hover { background: var(--accent-violet); color: white; transform: scale(1.05); }
 
-  .play-btn:hover {
-    background: var(--accent-violet);
-    color: white;
-    transform: scale(1.05);
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-style: italic;
   }
 
-  /* ---- FOOTER ---- */
+  /* FOOTER */
   .footer {
     max-width: 960px;
     margin: 0 auto;
     padding: 32px;
     border-top: 3px solid var(--text-headline);
   }
-
-  .footer-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; }
   .footer-brand {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 16px;
     font-weight: 700;
     color: var(--text-headline);
   }
-
-  .footer-copy {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 24px;
-  }
-
-  .footer-links a {
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
+  .footer-copy { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
   .footer-links a:hover { color: var(--accent-blue); }
 
-  /* ---- BITE-SIZED VIEW ---- */
+  /* BITE-SIZED */
   .bite-sized .hero-story { display: none; }
   .bite-sized .news-snippet { display: none; }
   .bite-sized .news-item { padding: 12px 16px; }
   .bite-sized .news-headline { font-size: 15px; }
-  .bite-sized .deals-table .deal-type { display: none; }
   .bite-sized .land-detail { display: none; }
   .bite-sized .podcast-desc { display: none; }
   .bite-sized .partner-update { display: none; }
+  .bite-sized .supplier-snippet { display: none; }
 
-  /* ---- RESPONSIVE ---- */
+  /* RESPONSIVE */
   @media (max-width: 768px) {
     .stats-strip { grid-template-columns: repeat(2, 1fr); }
     .hero-story { grid-template-columns: 1fr; }
-    .partners-grid { grid-template-columns: 1fr; }
+    .partners-grid, .supplier-grid { grid-template-columns: 1fr; }
     .main { padding: 24px 20px; }
     .masthead { padding: 24px 20px 20px; }
     .header-toolbar { padding: 10px 20px; }
@@ -1019,7 +819,6 @@
     .podcast-card { grid-template-columns: 1fr auto; }
     .podcast-cover { display: none; }
   }
-
   @media (max-width: 480px) {
     .stats-strip { grid-template-columns: 1fr; }
     .toolbar-actions .toolbar-btn:not(.theme-toggle) { display: none; }
@@ -1027,19 +826,9 @@
     .news-item { grid-template-columns: 1fr auto; }
   }
 
-  /* ---- ANIMATIONS ---- */
-  .anim-in {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  .anim-in.visible {
-    animation: slideIn 0.4s ease forwards;
-  }
-
-  @keyframes slideIn {
-    to { opacity: 1; transform: translateY(0); }
-  }
+  .anim-in { opacity: 0; transform: translateY(12px); }
+  .anim-in.visible { animation: slideIn 0.4s ease forwards; }
+  @keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
@@ -1048,28 +837,148 @@
 <div class="markets-bar">
   <div class="markets-label">Markets</div>
   <div class="markets-track-wrapper">
-    <div class="markets-track" id="marketsTrack"></div>
+    <div class="markets-track" id="marketsTrack">
+      
+      <span class="market-item">
+        <span class="market-symbol">EQIX</span>
+        <span class="market-price">$952.61</span>
+        <span class="market-change up">&#8599; +1.02%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">DLR</span>
+        <span class="market-price">$181.54</span>
+        <span class="market-change up">&#8599; +1.56%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">AMT</span>
+        <span class="market-price">$184.68</span>
+        <span class="market-change down">&#8600; -1.05%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">CCI</span>
+        <span class="market-price">$88.58</span>
+        <span class="market-change down">&#8600; -0.93%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">SBAC</span>
+        <span class="market-price">$194.57</span>
+        <span class="market-change down">&#8600; -0.73%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">GOOGL</span>
+        <span class="market-price">$307.07</span>
+        <span class="market-change up">&#8599; +0.81%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">MSFT</span>
+        <span class="market-price">$403.97</span>
+        <span class="market-change down">&#8600; -1.01%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">AMZN</span>
+        <span class="market-price">$214.73</span>
+        <span class="market-change up">&#8599; +1.40%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">NVDA</span>
+        <span class="market-price">$184.18</span>
+        <span class="market-change up">&#8599; +1.55%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">META</span>
+        <span class="market-price">$652.26</span>
+        <span class="market-change up">&#8599; +1.13%</span>
+      </span>
+      
+      
+      <span class="market-item">
+        <span class="market-symbol">EQIX</span>
+        <span class="market-price">$952.61</span>
+        <span class="market-change up">&#8599; +1.02%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">DLR</span>
+        <span class="market-price">$181.54</span>
+        <span class="market-change up">&#8599; +1.56%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">AMT</span>
+        <span class="market-price">$184.68</span>
+        <span class="market-change down">&#8600; -1.05%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">CCI</span>
+        <span class="market-price">$88.58</span>
+        <span class="market-change down">&#8600; -0.93%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">SBAC</span>
+        <span class="market-price">$194.57</span>
+        <span class="market-change down">&#8600; -0.73%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">GOOGL</span>
+        <span class="market-price">$307.07</span>
+        <span class="market-change up">&#8599; +0.81%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">MSFT</span>
+        <span class="market-price">$403.97</span>
+        <span class="market-change down">&#8600; -1.01%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">AMZN</span>
+        <span class="market-price">$214.73</span>
+        <span class="market-change up">&#8599; +1.40%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">NVDA</span>
+        <span class="market-price">$184.18</span>
+        <span class="market-change up">&#8599; +1.55%</span>
+      </span>
+      
+      <span class="market-item">
+        <span class="market-symbol">META</span>
+        <span class="market-price">$652.26</span>
+        <span class="market-change up">&#8599; +1.13%</span>
+      </span>
+      
+    </div>
   </div>
 </div>
 
 <!-- HEADER -->
 <header class="header">
   <div class="header-toolbar">
-    <span class="edition-no">NO. 432</span>
+    <span class="edition-no">NO. 433</span>
     <div class="toolbar-actions">
-      <button class="toolbar-btn" title="Share">&#128279; Share</button>
-      <button class="toolbar-btn" title="Subscribe">&#128231; Subscribe</button>
+      <button class="toolbar-btn" title="Share" onclick="navigator.share?.({title:'DC Morning Brief',url:location.href})">&#128279; Share</button>
       <button class="toolbar-btn theme-toggle" onclick="toggleTheme()" title="Toggle theme" id="themeBtn">&#9789;</button>
     </div>
   </div>
-
   <div class="masthead">
     <div class="masthead-rule"></div>
     <h1 class="masthead-title">DC Morning Brief</h1>
     <p class="masthead-subtitle">Your daily data centre industry intelligence</p>
-    <div class="masthead-date" id="dateDisplay"></div>
-    <p class="masthead-greeting" id="greeting"></p>
-
+    <div class="masthead-date">TUESDAY, MARCH 10, 2026</div>
+    <p class="masthead-greeting"><em>Good Afternoon. Here's what's moving the industry today.</em></p>
     <div class="view-toggle-container">
       <div class="view-toggle">
         <button class="view-btn active" onclick="setView('full', this)">&#128196; Full Brief</button>
@@ -1080,34 +989,34 @@
 </header>
 <div class="masthead-rule-bottom"></div>
 
-<!-- MAIN -->
 <main class="main" id="mainContent">
 
   <!-- STATS -->
   <div class="stats-strip anim-in">
     <div class="stat-cell">
-      <div class="stat-label">Active DC Deals</div>
-      <div class="stat-value">47</div>
-      <div class="stat-delta delta-up">+12% WoW</div>
+      <div class="stat-label">Stories Today</div>
+      <div class="stat-value">45</div>
+      <div class="stat-delta delta-up">across 10 sources</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-label">Global MW Pipeline</div>
-      <div class="stat-value">8.4 GW</div>
-      <div class="stat-delta delta-up">+3.1% MoM</div>
+      <div class="stat-label">Deals &amp; M&amp;A</div>
+      <div class="stat-value">10</div>
+      <div class="stat-delta">stories today</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-label">Land Deals This Week</div>
-      <div class="stat-value">14</div>
-      <div class="stat-delta delta-down">-2 WoW</div>
+      <div class="stat-label">Supplier Mentions</div>
+      <div class="stat-value">12</div>
+      <div class="stat-delta">Meta suppliers in news</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-label">YTD Investment</div>
-      <div class="stat-value">$82B</div>
-      <div class="stat-delta delta-up">+24% YoY</div>
+      <div class="stat-label">Last Updated</div>
+      <div class="stat-value">14:26</div>
+      <div class="stat-delta">10 Mar</div>
     </div>
   </div>
 
   <!-- TOP STORIES -->
+  
   <section class="section">
     <div class="section-header">
       <span class="section-label label-top">&#9889; Top Stories</span>
@@ -1115,404 +1024,568 @@
       <span class="section-count">5 stories</span>
     </div>
 
+    
     <div class="hero-story anim-in">
       <div class="hero-image">&#127967;</div>
       <div class="hero-content">
-        <div class="hero-tag">&#9679; Breaking News</div>
-        <h2 class="hero-headline">Equinix Announces $22B Hyperscale Campus in Northern Virginia with 500MW Capacity</h2>
-        <p class="hero-excerpt">The data centre giant is set to break ground on one of the largest campus developments in the US, targeting AI and cloud workloads. The facility will feature advanced liquid cooling infrastructure and is expected to be operational by Q3 2027.</p>
+        <div class="hero-tag">&#9679; Top Story</div>
+        <h2 class="hero-headline">Sorry, kids. Memory crunch threatens to kneecap Chromebook shipments</h2>
+        <p class="hero-excerpt">Low-cost computers bashed by billion-dollar investment in AI infrastructure Chromebooks, the low-cost computing option popular with education buyers, will be squeezed hardest this year as memory prices spiral out of control.…</p>
         <div class="story-meta">
-          <span class="story-source">DatacenterDynamics</span>
+          <a href="https://go.theregister.com/feed/www.theregister.com/2026/03/10/memory_chromebooks_pcs/" target="_blank" rel="noopener"><span class="story-source">The Register</span></a>
           <span class="meta-divider"></span>
-          <span>4 min read</span>
-          <span class="meta-divider"></span>
-          <span>2 hours ago</span>
+          <span>just now</span>
         </div>
       </div>
     </div>
+    
 
+    
     <div class="news-list anim-in">
-      <div class="news-item">
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/news/australian-startup-cortical-labs-unveils-biological-data-center-prototype/" target="_blank" rel="noopener">
         <div class="news-number">2</div>
         <div class="news-body">
-          <span class="news-tag tag-deals">Deal</span>
-          <div class="news-headline">DigitalBridge Closes $4.1B Fund Targeting European DC Assets</div>
-          <div class="news-snippet">The infrastructure investor has exceeded its initial target, with commitments from major sovereign wealth funds and pension plans across Europe and the Middle East.</div>
+          <span class="news-tag tag-land">Land</span>
+          <div class="news-headline">Australian startup Cortical Labs unveils biological data center prototype</div>
+          <div class="news-snippet">Company claims ‘wetware’ deployed in facility requires “fraction of the energy” needed by digital systems</div>
         </div>
-        <div class="news-time">3h ago</div>
-      </div>
-
-      <div class="news-item">
+        <div class="news-time">1h ago</div>
+      </a>
+      
+      <a class="news-item" href="https://go.theregister.com/feed/www.theregister.com/2026/03/10/microsoft_authenticator_checks/" target="_blank" rel="noopener">
         <div class="news-number">3</div>
         <div class="news-body">
-          <span class="news-tag tag-meta-partner">Meta Partner</span>
-          <div class="news-headline">EdgeConneX Expands Meta Colocation Footprint Across APAC</div>
-          <div class="news-snippet">Three new facilities planned in Jakarta, Manila, and Bangkok to support Meta's growing regional infrastructure demands for AI workloads.</div>
+          <span class="news-tag tag-infra">Industry</span>
+          <div class="news-headline">Microsoft Authenticator to nuke Entra creds on rooted and jailbroken phones</div>
+          <div class="news-snippet">Warning, lockout, then wipe if your device trips detection Microsoft is removing Entra credentials for school and work from jailbroken and rooted devices running iOS and Android.…</div>
         </div>
-        <div class="news-time">5h ago</div>
-      </div>
-
-      <div class="news-item">
+        <div class="news-time">just now</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterknowledge.com/cloud/coreweave-s-flexible-pricing-bet-signals-strategic-shift" target="_blank" rel="noopener">
         <div class="news-number">4</div>
         <div class="news-body">
-          <span class="news-tag tag-energy">Energy</span>
-          <div class="news-headline">Microsoft Signs 20-Year Nuclear PPA With Constellation Energy</div>
-          <div class="news-snippet">Deal to restart Three Mile Island Unit 1 reactor marks a milestone in hyperscaler nuclear power procurement strategies.</div>
+          <span class="news-tag tag-infra">Industry</span>
+          <div class="news-headline">CoreWeave’s Flexible AI Cloud Pricing Model Signals Strategic Shift</div>
+          <div class="news-snippet">The company has launched new plans to help AI customers balance predictable inference and training workloads while optimizing GPU costs.</div>
         </div>
-        <div class="news-time">6h ago</div>
-      </div>
-
-      <div class="news-item">
+        <div class="news-time">2h ago</div>
+      </a>
+      
+      <a class="news-item" href="https://capacityglobal.com/news/capacity-power-100-nominations-now-open/" target="_blank" rel="noopener">
         <div class="news-number">5</div>
         <div class="news-body">
-          <span class="news-tag tag-infra">Infrastructure</span>
-          <div class="news-headline">NVIDIA's Next-Gen Networking Chips Target 800G DC Interconnects</div>
-          <div class="news-snippet">NVIDIA unveils ConnectX-8 and BlueField-4 DPUs designed for AI-optimised data centre fabrics, promising 2x bandwidth improvements.</div>
+          <span class="news-tag tag-infra">Industry</span>
+          <div class="news-headline">Capacity Power 100 nominations now open!</div>
+          <div class="news-snippet">Nominations are now open for Capacity&#x27;s Power 100 - the definitive ranking of the 100 most influential leaders across the industry. The post Capacity Power 100 nominations now open! appeared first on Capacity.</div>
         </div>
-        <div class="news-time">8h ago</div>
-      </div>
+        <div class="news-time">2h ago</div>
+      </a>
+      
     </div>
+    
   </section>
+  
 
   <!-- DEALS & M&A -->
+  
   <section class="section">
     <div class="section-header">
       <span class="section-label label-deals">&#128200; Deals &amp; M&amp;A</span>
       <div class="section-rule"></div>
-      <span class="section-count">6 active</span>
+      <span class="section-count">10 stories</span>
     </div>
-
-    <div class="filter-bar">
-      <button class="filter-tab active" onclick="filterDeals('all', this)">All</button>
-      <button class="filter-tab" onclick="filterDeals('acquisition', this)">Acquisitions</button>
-      <button class="filter-tab" onclick="filterDeals('merger', this)">Mergers</button>
-      <button class="filter-tab" onclick="filterDeals('investment', this)">Investments</button>
-      <button class="filter-tab" onclick="filterDeals('jv', this)">Joint Ventures</button>
-    </div>
-
-    <div class="deals-wrapper anim-in">
-      <table class="deals-table">
-        <thead>
-          <tr>
-            <th>Parties</th>
-            <th>Type</th>
-            <th>Value</th>
-            <th>Status</th>
-            <th>Region</th>
-          </tr>
-        </thead>
-        <tbody id="dealsBody">
-          <tr data-type="acquisition">
-            <td><div class="deal-parties">GLP Capital <span class="deal-arrow">&#8594;</span> CyrusOne APAC</div></td>
-            <td><span class="deal-type">Acquisition</span></td>
-            <td><span class="deal-value">$3.8B</span></td>
-            <td><span class="deal-status status-active">&#9679; Active</span></td>
-            <td>Asia-Pacific</td>
-          </tr>
-          <tr data-type="merger">
-            <td><div class="deal-parties">QTS Realty <span class="deal-arrow">&#8596;</span> Vantage Europe</div></td>
-            <td><span class="deal-type">Merger</span></td>
-            <td><span class="deal-value">$6.2B</span></td>
-            <td><span class="deal-status status-pending">&#9679; Pending</span></td>
-            <td>Global</td>
-          </tr>
-          <tr data-type="investment">
-            <td><div class="deal-parties">Brookfield <span class="deal-arrow">&#8594;</span> AirTrunk</div></td>
-            <td><span class="deal-type">Investment</span></td>
-            <td><span class="deal-value">$2.1B</span></td>
-            <td><span class="deal-status status-closed">&#9679; Closed</span></td>
-            <td>APAC</td>
-          </tr>
-          <tr data-type="acquisition">
-            <td><div class="deal-parties">Blackstone <span class="deal-arrow">&#8594;</span> DataBank</div></td>
-            <td><span class="deal-type">Acquisition</span></td>
-            <td><span class="deal-value">$7.5B</span></td>
-            <td><span class="deal-status status-rumoured">&#9679; Rumoured</span></td>
-            <td>North America</td>
-          </tr>
-          <tr data-type="jv">
-            <td><div class="deal-parties">NTT + Mitsubishi</div></td>
-            <td><span class="deal-type">Joint Venture</span></td>
-            <td><span class="deal-value">$1.4B</span></td>
-            <td><span class="deal-status status-active">&#9679; Active</span></td>
-            <td>Japan</td>
-          </tr>
-          <tr data-type="investment">
-            <td><div class="deal-parties">KKR <span class="deal-arrow">&#8594;</span> Global Switch</div></td>
-            <td><span class="deal-type">Investment</span></td>
-            <td><span class="deal-value">$4.9B</span></td>
-            <td><span class="deal-status status-pending">&#9679; Pending</span></td>
-            <td>Europe</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="news-list anim-in">
+      
+      <a class="news-item" href="https://go.theregister.com/feed/www.theregister.com/2026/03/10/memory_chromebooks_pcs/" target="_blank" rel="noopener">
+        <div class="news-number">1</div>
+        <div class="news-body">
+          <span class="news-tag tag-deals">Deal</span>
+          <div class="news-headline">Sorry, kids. Memory crunch threatens to kneecap Chromebook shipments</div>
+          <div class="news-snippet">Low-cost computers bashed by billion-dollar investment in AI infrastructure Chromebooks, the low-cost computing option popular with education buyers, will be squeezed hardest this year as memory prices spiral out of control.…</div>
+        </div>
+        <div class="news-time">The Register</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/news/uk-to-launch-500m-sovereign-ai-venture-fund/" target="_blank" rel="noopener">
+        <div class="news-number">2</div>
+        <div class="news-body">
+          <span class="news-tag tag-deals">Deal</span>
+          <div class="news-headline">UK to launch £500m Sovereign AI venture fund</div>
+          <div class="news-snippet">As it also looks to boost UK data center compute</div>
+        </div>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/news/airtrunk-secures-124bn-green-loan-for-tokyo-data-center-campus-expansion/" target="_blank" rel="noopener">
+        <div class="news-number">3</div>
+        <div class="news-body">
+          <span class="news-tag tag-deals">Deal</span>
+          <div class="news-headline">AirTrunk secures $1.24bn green loan for Tokyo data center campus expansion</div>
+          <div class="news-snippet">The funds will be used to refinance and develop TOK1 in East Tokyo</div>
+        </div>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
+      <a class="news-item" href="https://capacityglobal.com/news/time-dotcom-ciena/" target="_blank" rel="noopener">
+        <div class="news-number">4</div>
+        <div class="news-body">
+          <span class="news-tag tag-deals">Deal</span>
+          <div class="news-headline">TIME dotCom deploys Ciena technology to deliver 1Tb/s transmission on FASTER transpacific cable</div>
+          <div class="news-snippet">TIME dotCom Berhad has upgraded its transpacific network using new optical technology from Ciena, enabling data transmission of up to 1Tb/s across the FASTER submarine cable system. The post TIME dotCom deploys Ciena technology to deliver 1Tb/s transmission on FASTER transpacific cable appeared f...</div>
+        </div>
+        <div class="news-time">Capacity Media</div>
+      </a>
+      
+      <a class="news-item" href="https://capacityglobal.com/news/data-centre-phantom-investments-uk-ai-growth/" target="_blank" rel="noopener">
+        <div class="news-number">5</div>
+        <div class="news-body">
+          <span class="news-tag tag-deals">Deal</span>
+          <div class="news-headline">UK AI data centre investments: Empty promises or slow growth?</div>
+          <div class="news-snippet">‘Phantom investments’ and unbuilt data centres could cast doubt on multi-billion-pound AI infrastructure commitments across the UK. The post UK AI data centre investments: Empty promises or slow growth? appeared first on Capacity.</div>
+        </div>
+        <div class="news-time">Capacity Media</div>
+      </a>
+      
+      <a class="news-item" href="https://capacityglobal.com/news/airtrunk-closes-japans-biggest-data-centre-financing/" target="_blank" rel="noopener">
+        <div class="news-number">6</div>
+        <div class="news-body">
+          <span class="news-tag tag-deals">Deal</span>
+          <div class="news-headline">AirTrunk closes Japan’s ‘biggest data centre financing’ with $1.2bn green loan</div>
+          <div class="news-snippet">AirTrunk has secured the largest data centre financing ever completed in Japan, raising JP¥191.6bn (US$1.24bn) through a green loan to refinance and expand its flagship TOK1 hyperscale campus in east Tokyo. The post AirTrunk closes Japan’s ‘biggest data centre financing’ with $1.2bn green loan ap...</div>
+        </div>
+        <div class="news-time">Capacity Media</div>
+      </a>
+      
+      <a class="news-item" href="https://capacityglobal.com/news/yann-lecun-ami-labs-raises-1bn-world-models-ai-funding/" target="_blank" rel="noopener">
+        <div class="news-number">7</div>
+        <div class="news-body">
+          <span class="news-tag tag-deals">Deal</span>
+          <div class="news-headline">AI godfather, Yann LeCun who thinks LLMs are a dead-end just raised $1bn… with NVIDIA and Bezos backing him</div>
+          <div class="news-snippet">AMI Labs has closed a $1.03bn seed round at a $3.5bn valuation with no product and no revenue… Bezos, NVIDIA and Eric Schmidt are backing it anyway The post AI godfather, Yann LeCun who thinks LLMs are a dead-end just raised $1bn… with NVIDIA and Bezos backing him appeared first on Capacity.</div>
+        </div>
+        <div class="news-time">Capacity Media</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/news/celcomdigi-maxis-snap-up-malaysian-governments-stake-in-digital-nasional-berhad/" target="_blank" rel="noopener">
+        <div class="news-number">8</div>
+        <div class="news-body">
+          <span class="news-tag tag-deals">Deal</span>
+          <div class="news-headline">CelcomDigi, Maxis snap up Malaysian government&#x27;s stake in Digital Nasional Berhad</div>
+          <div class="news-snippet">It&#x27;s a step towards privatization of Malaysia&#x27;s first national 5G network</div>
+        </div>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/news/akash-systems-launches-amd-powered-diamond-cooled-ai-servers/" target="_blank" rel="noopener">
+        <div class="news-number">9</div>
+        <div class="news-body">
+          <span class="news-tag tag-deals">Deal</span>
+          <div class="news-headline">Akash Systems launches AMD-powered diamond cooled AI servers</div>
+          <div class="news-snippet">Company has already received a $300 million initial order for the servers in the US</div>
+        </div>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/news/vertiv-generate-capital-team-up-on-bring-your-own-power-cooling-offering-for-data-centers/" target="_blank" rel="noopener">
+        <div class="news-number">10</div>
+        <div class="news-body">
+          <span class="news-tag tag-deals">Deal</span>
+          <div class="news-headline">Vertiv &amp; Generate Capital team up on &quot;Bring Your Own Power &amp; Cooling&quot; offering for data centers</div>
+          <div class="news-snippet">Plus other news from Vertiv</div>
+        </div>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
     </div>
   </section>
+  
 
   <!-- LAND & DEVELOPMENT -->
+  
   <section class="section">
     <div class="section-header">
       <span class="section-label label-land">&#127759; Land &amp; Development</span>
       <div class="section-rule"></div>
-      <span class="section-count">4 new sites</span>
+      <span class="section-count">8 stories</span>
     </div>
-
-    <div class="land-list anim-in">
-      <div class="land-card">
-        <div class="land-flag">&#127463;&#127466;</div>
-        <div class="land-info">
-          <div class="land-location">Ghent, Belgium</div>
-          <div class="land-detail">Google secures 100-hectare site for hyperscale campus near industrial canal zone, marking their largest European land deal this year.</div>
+    <div class="news-list anim-in">
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/news/australian-startup-cortical-labs-unveils-biological-data-center-prototype/" target="_blank" rel="noopener">
+        <div class="news-number">1</div>
+        <div class="news-body">
+          <span class="news-tag tag-land">Land</span>
+          <div class="news-headline">Australian startup Cortical Labs unveils biological data center prototype</div>
+          <div class="news-snippet">Company claims ‘wetware’ deployed in facility requires “fraction of the energy” needed by digital systems</div>
         </div>
-        <div class="land-specs">
-          <span class="land-spec">&#9889; <strong>150MW</strong></span>
-          <span class="land-spec">&#128207; <strong>100 ha</strong></span>
-          <span class="land-spec">&#128197; Q1 2028</span>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
+      <a class="news-item" href="https://capacityglobal.com/news/uniti-wholesale-in-2026-fastwaves-ai-growth-network-expansion/" target="_blank" rel="noopener">
+        <div class="news-number">2</div>
+        <div class="news-body">
+          <span class="news-tag tag-land">Land</span>
+          <div class="news-headline">Uniti Wholesale in 2026: FastWaves™, AI growth &amp; network expansion</div>
+          <div class="news-snippet">At Metro Connect 2026, Capacity’s Saf Malik speaks with Uniti Wholesale executives Greg Ortyl and John Nishimoto about how AI and cloud demand are reshaping wholesale infrastructure. The post Uniti Wholesale in 2026: FastWaves™, AI growth &amp;amp; network expansion appeared first on Capacity.</div>
         </div>
-      </div>
-
-      <div class="land-card">
-        <div class="land-flag">&#127482;&#127480;</div>
-        <div class="land-info">
-          <div class="land-location">Mesa, Arizona, USA</div>
-          <div class="land-detail">Meta acquires 640 acres of desert land for next-generation AI data centre campus with dedicated solar farm.</div>
+        <div class="news-time">Capacity Media</div>
+      </a>
+      
+      <a class="news-item" href="https://go.theregister.com/feed/www.theregister.com/2026/03/10/poland_ddos_teens_bust/" target="_blank" rel="noopener">
+        <div class="news-number">3</div>
+        <div class="news-body">
+          <span class="news-tag tag-land">Land</span>
+          <div class="news-headline">Polish cops bust alleged teen DDoS kit sellers – youngest just 12</div>
+          <div class="news-snippet">Kids profited from tools used to attack popular websites, say officials Polish police have referred seven suspected juvenile cybercriminals to family court over an alleged scheme to flog DDoS kits online.…</div>
         </div>
-        <div class="land-specs">
-          <span class="land-spec">&#9889; <strong>300MW</strong></span>
-          <span class="land-spec">&#128207; <strong>640 ac</strong></span>
-          <span class="land-spec">&#128197; Q4 2027</span>
+        <div class="news-time">The Register</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/news/cyrusone-tops-out-latest-texas-data-center/" target="_blank" rel="noopener">
+        <div class="news-number">4</div>
+        <div class="news-body">
+          <span class="news-tag tag-land">Land</span>
+          <div class="news-headline">CyrusOne tops out latest Texas data center</div>
+          <div class="news-snippet">Company completes structure of first building at Bosque County campus</div>
         </div>
-      </div>
-
-      <div class="land-card">
-        <div class="land-flag">&#127470;&#127475;</div>
-        <div class="land-info">
-          <div class="land-location">Hyderabad, India</div>
-          <div class="land-detail">AWS signs MOU for 50-acre campus in Telangana IT corridor with state incentives package worth $120M.</div>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/news/planning-commission-recommends-approval-for-16m-sq-ft-planned-data-center-in-louisville-kentucky/" target="_blank" rel="noopener">
+        <div class="news-number">5</div>
+        <div class="news-body">
+          <span class="news-tag tag-land">Land</span>
+          <div class="news-headline">Planning Commission recommends approval for 1.6m sq ft planned data center in Louisville, Kentucky</div>
+          <div class="news-snippet">Developers estimate construction will start in 2025</div>
         </div>
-        <div class="land-specs">
-          <span class="land-spec">&#9889; <strong>80MW</strong></span>
-          <span class="land-spec">&#128207; <strong>50 ac</strong></span>
-          <span class="land-spec">&#128197; Q2 2028</span>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/news/equinix-signs-self-generation-agreement-with-auren-energia/" target="_blank" rel="noopener">
+        <div class="news-number">6</div>
+        <div class="news-body">
+          <span class="news-tag tag-land">Land</span>
+          <div class="news-headline">Equinix signs wind PPA with Auren Energia in Brazil</div>
+          <div class="news-snippet">Company aims to secure renewable energy for the expansion of data centers and AI in Brazil</div>
         </div>
-      </div>
-
-      <div class="land-card">
-        <div class="land-flag">&#127468;&#127463;</div>
-        <div class="land-info">
-          <div class="land-location">Sunderland, UK</div>
-          <div class="land-detail">Microsoft confirms 35-acre plot near Nissan plant for Northern Powerhouse DC cluster with grid connection secured.</div>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
+      <a class="news-item" href="https://go.theregister.com/feed/www.theregister.com/2026/03/09/nscale_board_picks/" target="_blank" rel="noopener">
+        <div class="news-number">7</div>
+        <div class="news-body">
+          <span class="news-tag tag-land">Land</span>
+          <div class="news-headline">Ex-Meta execs pop up on Nscale board as rent-a-GPU firm raises $2B</div>
+          <div class="news-snippet">Former policy boss Nick Clegg joins Cheryl Sandberg and one-time Yahoo prez Susan Decker Former British deputy prime minister Sir Nick Clegg has landed a board seat at UK-based neocloud Nscale, alongside fellow ex-Meta exec Sheryl Sandberg and former president of Yahoo Susan Decker.…</div>
         </div>
-        <div class="land-specs">
-          <span class="land-spec">&#9889; <strong>60MW</strong></span>
-          <span class="land-spec">&#128207; <strong>35 ac</strong></span>
-          <span class="land-spec">&#128197; Q3 2027</span>
+        <div class="news-time">The Register</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterknowledge.com/cooling/rdhx-a-simple-affordable-path-to-lower-data-center-energy-use" target="_blank" rel="noopener">
+        <div class="news-number">8</div>
+        <div class="news-body">
+          <span class="news-tag tag-land">Land</span>
+          <div class="news-headline">RDHx: A Simple, Affordable Path to Lower Data Center Energy Use</div>
+          <div class="news-snippet">For operators facing rapidly rising, AI-driven loads, RDHx delivers practical efficiency gains now and buys time before undertaking complex, long-lead facility upgrades.</div>
         </div>
-      </div>
+        <div class="news-time">Data Center Knowledge</div>
+      </a>
+      
     </div>
   </section>
+  
 
-  <!-- META PARTNERS -->
+  <!-- META SUPPLIER NEWS -->
+  
   <section class="section">
     <div class="section-header">
-      <span class="section-label label-meta">&#129309; Meta Partners</span>
+      <span class="section-label label-supplier">&#127981; Meta Supplier Watch</span>
       <div class="section-rule"></div>
-      <span class="section-count">4 updates</span>
+      <span class="section-count">12 mentions</span>
     </div>
-
-    <div class="partners-grid anim-in">
-      <div class="partner-card">
-        <div class="partner-pulse"></div>
-        <div class="partner-icon" style="background: linear-gradient(135deg, #2563eb, #0891b2);">EC</div>
-        <div class="partner-info">
-          <div class="partner-name">EdgeConneX</div>
-          <div class="partner-role">Colocation &amp; Edge</div>
-          <div class="partner-update">3 new APAC sites for Meta workloads announced — Jakarta, Manila, and Bangkok facilities in planning.</div>
+    <div class="supplier-grid anim-in">
+      
+      <a class="supplier-card" href="https://go.theregister.com/feed/www.theregister.com/2026/03/10/foss_age_verification_2/" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">IE</div>
+          <div>
+            <div class="supplier-name">IES</div>
+            <div class="supplier-scope">Trade Contractor</div>
+          </div>
         </div>
-      </div>
-
-      <div class="partner-card">
-        <div class="partner-pulse"></div>
-        <div class="partner-icon" style="background: linear-gradient(135deg, #16a34a, #0891b2);">QT</div>
-        <div class="partner-info">
-          <div class="partner-name">QTS Realty</div>
-          <div class="partner-role">Hyperscale Leasing</div>
-          <div class="partner-update">200MW expansion in Ashburn campus entering Phase 2 build-out, with Meta as anchor tenant for 80MW block.</div>
+        <div class="supplier-headline">Linux PC vendor System76 tries to talk Colorado down over OS age checks</div>
+        <div class="supplier-snippet">Don&#x27;t celebrate yet – more states are considering them As more US states push to mandate OS-level age checks, System76 is taking its fight directly to lawmakers.…</div>
+      </a>
+      
+      <a class="supplier-card" href="https://go.theregister.com/feed/www.theregister.com/2026/03/10/cma_ai_agents/" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">IE</div>
+          <div>
+            <div class="supplier-name">IES</div>
+            <div class="supplier-scope">Trade Contractor</div>
+          </div>
         </div>
-      </div>
-
-      <div class="partner-card">
-        <div class="partner-icon" style="background: linear-gradient(135deg, #d97706, #ea580c);">CO</div>
-        <div class="partner-info">
-          <div class="partner-name">CyrusOne</div>
-          <div class="partner-role">Enterprise &amp; Cloud</div>
-          <div class="partner-update">Frankfurt facility upgrade complete — 40MW added capacity now online supporting Meta's European operations.</div>
+        <div class="supplier-headline">Brit competition cops warn AI agents may not be &#x27;faithful servants&#x27; to consumers</div>
+        <div class="supplier-snippet">Autonomous assistants could manipulate choices, push pricier deals, and prioritize their creators Britain&#x27;s competition watchdog says the next wave of agentic AI assistants could end up nudging people toward worse deals, manipulating choices, or quietly prioritizing the interests of the companies...</div>
+      </a>
+      
+      <a class="supplier-card" href="https://www.datacenterdynamics.com/en/product-news/cmc-opens-design-consulting-tender-for-hyperscale-data-center-project-in-ho-chi-minh-city/" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">IE</div>
+          <div>
+            <div class="supplier-name">IES</div>
+            <div class="supplier-scope">Trade Contractor</div>
+          </div>
         </div>
-      </div>
-
-      <div class="partner-card">
-        <div class="partner-icon" style="background: linear-gradient(135deg, #7c3aed, #6366f1);">DR</div>
-        <div class="partner-info">
-          <div class="partner-name">Digital Realty</div>
-          <div class="partner-role">Interconnection</div>
-          <div class="partner-update">New PlatformDIGITAL hub in Singapore supporting Meta peering with 15+ network providers.</div>
+        <div class="supplier-headline">Sponsored: CMC opens design consulting tender for hyperscale data center project in Ho Chi Minh City</div>
+        <div class="supplier-snippet">Consulting firms with experience in hyperscale data centers, AI-ready infrastructure, mission-critical facilities, and green design are invited to participate in the design consulting package for CMC hyperscale data center</div>
+      </a>
+      
+      <a class="supplier-card" href="https://www.datacenterknowledge.com/infrastructure/intel-launches-core-series-2-processor-expands-edge-ai-portfolio" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">IE</div>
+          <div>
+            <div class="supplier-name">IES</div>
+            <div class="supplier-scope">Trade Contractor</div>
+          </div>
         </div>
-      </div>
+        <div class="supplier-headline">Intel Launches Core Series 2 Processor, Expands Edge AI Portfolio</div>
+        <div class="supplier-snippet">The chip giant is betting its two-chip strategy will be enticing for customers who favor balance and predictability.</div>
+      </a>
+      
+      <a class="supplier-card" href="https://go.theregister.com/feed/www.theregister.com/2026/03/09/rss_in_2026/" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">HT</div>
+          <div>
+            <div class="supplier-name">HITT</div>
+            <div class="supplier-scope">General Contractor</div>
+          </div>
+        </div>
+        <div class="supplier-headline">Vulture rediscovers RSS to dull the pain of the modern web</div>
+        <div class="supplier-snippet">Feeds are alive, well and can help deshittify things opinion A couple of timely blog posts remind us that RSS is alive, well, and can help you resist enshittification of the Web.…</div>
+      </a>
+      
+      <a class="supplier-card" href="https://capacityglobal.com/news/huawei-brings-connectivity-to-170m-people-globally/" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">IE</div>
+          <div>
+            <div class="supplier-name">IES</div>
+            <div class="supplier-scope">Trade Contractor</div>
+          </div>
+        </div>
+        <div class="supplier-headline">Huawei exceeds ITU Partner2Connect pledge target, bringing connectivity to 170m people globally</div>
+        <div class="supplier-snippet">Huawei has provided digital connectivity to 170 million people in remote areas across more than 80 countries, surpassing its pledge to the International Telecommunication Union’s (ITU) Partner2Connect (P2C) Digital Coalition. The post Huawei exceeds ITU Partner2Connect pledge target, bringing con...</div>
+      </a>
+      
+      <a class="supplier-card" href="https://go.theregister.com/feed/www.theregister.com/2026/03/09/claude_legacy_code_vulns/" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">IE</div>
+          <div>
+            <div class="supplier-name">IES</div>
+            <div class="supplier-scope">Trade Contractor</div>
+          </div>
+        </div>
+        <div class="supplier-headline">Microsoft Azure CTO set Claude on his 1986 Apple II code, says it found vulns</div>
+        <div class="supplier-snippet">This isn&#x27;t just a nostalgia trip – billions of legacy microcontrollers may be at risk AI can reverse engineer machine code and find vulnerabilities in ancient legacy architectures, says Microsoft Azure CTO Mark Russinovich, who used his own Apple II code from 40 years ago as an example.…</div>
+      </a>
+      
+      <a class="supplier-card" href="https://www.datacenterknowledge.com/data-center-site-selection/building-the-foundations-of-ai-cities-lessons-in-infrastructure-energy-and-efficiency" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">IE</div>
+          <div>
+            <div class="supplier-name">IES</div>
+            <div class="supplier-scope">Trade Contractor</div>
+          </div>
+        </div>
+        <div class="supplier-headline">Building the Foundations of AI Cities: Lessons in Infrastructure, Energy, and Efficiency</div>
+        <div class="supplier-snippet">The future of AI infrastructure hinges on sustainable, geographically diversified development that integrates clean energy sources and positions data centers as active contributors to the energy grid.</div>
+      </a>
+      
+      <a class="supplier-card" href="https://www.datacenterknowledge.com/data-center-construction/afcom-rack-density-and-build-outs-surge-as-ai-overhauls-data-center-design" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">IE</div>
+          <div>
+            <div class="supplier-name">IES</div>
+            <div class="supplier-scope">Trade Contractor</div>
+          </div>
+        </div>
+        <div class="supplier-headline">AFCOM: Rack Density and Build-Outs Surge as AI Overhauls Data Center Design</div>
+        <div class="supplier-snippet">AFCOM’s 10th State of the Data Center report finds operators are planning much larger, higher-density facilities from the outset.</div>
+      </a>
+      
+      <a class="supplier-card" href="https://www.datacenterknowledge.com/edge-data-centers/building-an-enterprise-aligned-edge-strategy-five-essentials-for-i-o-leaders" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">IE</div>
+          <div>
+            <div class="supplier-name">IES</div>
+            <div class="supplier-scope">Trade Contractor</div>
+          </div>
+        </div>
+        <div class="supplier-headline">Building an Enterprise-Aligned Edge Strategy: Five Essentials for I&amp;amp;O Leaders</div>
+        <div class="supplier-snippet">A disciplined edge strategy starts with vision and use cases, adds risk controls and standards and relies on a cross-functional team to execute at scale.</div>
+      </a>
+      
+      <a class="supplier-card" href="https://journal.uptimeinstitute.com/ai-and-cooling-toward-more-automation/" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">IE</div>
+          <div>
+            <div class="supplier-name">IES</div>
+            <div class="supplier-scope">Trade Contractor</div>
+          </div>
+        </div>
+        <div class="supplier-headline">AI and cooling: toward more automation</div>
+        <div class="supplier-snippet">AI is increasingly steering the data center industry toward new operational practices, where automation, analytics and adaptive control are paving the way for “dark” — or lights-out, unstaffed — facilities. Cooling systems, in particular, are leading this shift. Yet despite AI’s positive track re...</div>
+      </a>
+      
+      <a class="supplier-card" href="https://journal.uptimeinstitute.com/ais-growth-calls-for-useful-it-efficiency-metrics/" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">IE</div>
+          <div>
+            <div class="supplier-name">IES</div>
+            <div class="supplier-scope">Trade Contractor</div>
+          </div>
+        </div>
+        <div class="supplier-headline">AI’s growth calls for useful IT efficiency metrics</div>
+        <div class="supplier-snippet">The digital infrastructure industry is under pressure to measure and improve the energy efficiency of the computing work that underpins digital services. Enterprises seek to maximize returns on cost outlay and operating expenses for IT hardware, and regulators and local communities need reassuran...</div>
+      </a>
+      
     </div>
   </section>
+  
 
   <!-- INDUSTRY NEWS -->
+  
   <section class="section">
     <div class="section-header">
       <span class="section-label label-news">&#128240; Industry Roundup</span>
       <div class="section-rule"></div>
-      <span class="section-count">4 stories</span>
+      <span class="section-count">10 stories</span>
     </div>
-
     <div class="news-list anim-in">
-      <div class="news-item">
+      
+      <a class="news-item" href="https://go.theregister.com/feed/www.theregister.com/2026/03/10/microsoft_authenticator_checks/" target="_blank" rel="noopener">
         <div class="news-number">1</div>
         <div class="news-body">
-          <span class="news-tag tag-sustainability">Sustainability</span>
-          <div class="news-headline">EU Proposes Mandatory Carbon Reporting for Data Centres Over 1MW</div>
-          <div class="news-snippet">New regulation would require all major EU data centres to report Scope 1-3 emissions quarterly, with penalties starting 2027.</div>
+          <span class="news-tag tag-infra">News</span>
+          <div class="news-headline">Microsoft Authenticator to nuke Entra creds on rooted and jailbroken phones</div>
+          <div class="news-snippet">Warning, lockout, then wipe if your device trips detection Microsoft is removing Entra credentials for school and work from jailbroken and rooted devices running iOS and Android.…</div>
         </div>
-        <div class="news-time">Reuters</div>
-      </div>
-      <div class="news-item">
+        <div class="news-time">The Register</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterknowledge.com/cloud/coreweave-s-flexible-pricing-bet-signals-strategic-shift" target="_blank" rel="noopener">
         <div class="news-number">2</div>
         <div class="news-body">
-          <span class="news-tag tag-infra">Construction</span>
-          <div class="news-headline">Modular DC Construction Boom: Prefab Facilities Cut Build Time by 40%</div>
-          <div class="news-snippet">Major builders report modular approaches are slashing deployment timelines, with facilities going live in under 12 months.</div>
+          <span class="news-tag tag-infra">News</span>
+          <div class="news-headline">CoreWeave’s Flexible AI Cloud Pricing Model Signals Strategic Shift</div>
+          <div class="news-snippet">The company has launched new plans to help AI customers balance predictable inference and training workloads while optimizing GPU costs.</div>
         </div>
-        <div class="news-time">DCD</div>
-      </div>
-      <div class="news-item">
+        <div class="news-time">Data Center Knowledge</div>
+      </a>
+      
+      <a class="news-item" href="https://capacityglobal.com/news/capacity-power-100-nominations-now-open/" target="_blank" rel="noopener">
         <div class="news-number">3</div>
         <div class="news-body">
-          <span class="news-tag tag-infra">Cooling</span>
-          <div class="news-headline">Vertiv Reports 300% Surge in Liquid Cooling Orders for 2025</div>
-          <div class="news-snippet">GPU-dense AI racks are driving unprecedented demand for direct-to-chip and immersion cooling solutions across all major markets.</div>
+          <span class="news-tag tag-infra">News</span>
+          <div class="news-headline">Capacity Power 100 nominations now open!</div>
+          <div class="news-snippet">Nominations are now open for Capacity&#x27;s Power 100 - the definitive ranking of the 100 most influential leaders across the industry. The post Capacity Power 100 nominations now open! appeared first on Capacity.</div>
         </div>
-        <div class="news-time">Uptime Institute</div>
-      </div>
-      <div class="news-item">
+        <div class="news-time">Capacity Media</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/whitepapers/data-center-as-a-good-grid-citizen/" target="_blank" rel="noopener">
         <div class="news-number">4</div>
         <div class="news-body">
-          <span class="news-tag tag-meta-partner">Meta</span>
-          <div class="news-headline">Meta Targets 100% Renewable Energy Matching Across All DCs by 2030</div>
-          <div class="news-snippet">Updated sustainability roadmap includes hourly energy matching, next-gen heat recovery systems, and water-positive commitments.</div>
+          <span class="news-tag tag-infra">News</span>
+          <div class="news-headline">Data center as a good grid citizen</div>
+          <div class="news-snippet">Turning data centers into active partners in grid stability</div>
         </div>
-        <div class="news-time">Meta Blog</div>
-      </div>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/news/echostar-kills-boost-5g-network-gear-but-eyes-more-spectrum/" target="_blank" rel="noopener">
+        <div class="news-number">5</div>
+        <div class="news-body">
+          <span class="news-tag tag-infra">News</span>
+          <div class="news-headline">EchoStar kills Boost 5G network gear, but eyes more spectrum</div>
+          <div class="news-snippet">And still have licenses to sell</div>
+        </div>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
+      <a class="news-item" href="https://go.theregister.com/feed/www.theregister.com/2026/03/10/laserdisc_microscope/" target="_blank" rel="noopener">
+        <div class="news-number">6</div>
+        <div class="news-body">
+          <span class="news-tag tag-infra">News</span>
+          <div class="news-headline">Retro tech fan views LaserDisc movie data with a budget microscope</div>
+          <div class="news-snippet">Analog video spied by looking really, really closely at tracks A retro tech enthusiast has demonstrated that it is possible to view media on LaserDisc using a relatively inexpensive digital microscope.…</div>
+        </div>
+        <div class="news-time">The Register</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/news/dame-childs-steps-down-as-pure-dc-ceo-company-appoints-gary-wojtaszek-as-interim/" target="_blank" rel="noopener">
+        <div class="news-number">7</div>
+        <div class="news-body">
+          <span class="news-tag tag-infra">News</span>
+          <div class="news-headline">Dame Childs steps down as Pure DC CEO, company appoints Gary Wojtaszek as interim</div>
+          <div class="news-snippet">Childs to transition to president</div>
+        </div>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
+      <a class="news-item" href="https://go.theregister.com/feed/www.theregister.com/2026/03/10/mystery_system_outage_causes_jetblue/" target="_blank" rel="noopener">
+        <div class="news-number">8</div>
+        <div class="news-body">
+          <span class="news-tag tag-infra">News</span>
+          <div class="news-headline">Mystery outage behind US airline JetBlue asking FAA to ground its flights</div>
+          <div class="news-snippet">Aircraft on the ground briefly halted until systems were up again JetBlue took the unusual step of requesting a ground stop for all flights this morning, with the US airline resuming operations less than an hour later and blaming the stop on &quot;a brief system outage.&quot;…</div>
+        </div>
+        <div class="news-time">The Register</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterknowledge.com/data-center-site-selection/alberta-grapples-with-water-challenges-amid-data-center-boom" target="_blank" rel="noopener">
+        <div class="news-number">9</div>
+        <div class="news-body">
+          <span class="news-tag tag-infra">News</span>
+          <div class="news-headline">Alberta Grapples With Water Challenges Amid Data Center Boom</div>
+          <div class="news-snippet">As Alberta’s tech boom strains water resources, data center operators are exploring innovative cooling solutions to ensure sustainable growth.</div>
+        </div>
+        <div class="news-time">Data Center Knowledge</div>
+      </a>
+      
+      <a class="news-item" href="https://www.datacenterdynamics.com/en/marketwatch/the-winning-formula-for-achieving-scale-at-speed/" target="_blank" rel="noopener">
+        <div class="news-number">10</div>
+        <div class="news-body">
+          <span class="news-tag tag-infra">News</span>
+          <div class="news-headline">Sponsored: The winning formula for achieving scale at speed</div>
+          <div class="news-snippet">Why modularity wins in the AI data center era</div>
+        </div>
+        <div class="news-time">DatacenterDynamics</div>
+      </a>
+      
     </div>
   </section>
+  
 
   <!-- PODCASTS -->
-  <section class="section">
-    <div class="section-header">
-      <span class="section-label label-podcast">&#127911; Podcast Picks</span>
-      <div class="section-rule"></div>
-      <span class="section-count">3 episodes</span>
-    </div>
-
-    <div class="podcast-list anim-in">
-      <div class="podcast-card">
-        <div class="podcast-cover" style="background: linear-gradient(135deg, #e11d48, #ec4899);">&#127897;</div>
-        <div class="podcast-info">
-          <div class="podcast-show">Infrastructure Investor Podcast</div>
-          <div class="podcast-title">The AI Gold Rush: Who's Actually Building the Data Centres?</div>
-          <div class="podcast-desc">An in-depth look at capital flows into DC infrastructure, the real players, and what happens when supply catches demand.</div>
-        </div>
-        <div class="podcast-actions">
-          <span class="podcast-duration">42 min</span>
-          <button class="play-btn" title="Play">&#9654;</button>
-        </div>
-      </div>
-
-      <div class="podcast-card">
-        <div class="podcast-cover" style="background: linear-gradient(135deg, #2563eb, #0891b2);">&#127897;</div>
-        <div class="podcast-info">
-          <div class="podcast-show">Datacenter Frontier</div>
-          <div class="podcast-title">Liquid Cooling at Scale: Lessons From the Hyperscalers</div>
-          <div class="podcast-desc">Engineers from leading operators discuss the shift from air to liquid cooling and implications for rack density.</div>
-        </div>
-        <div class="podcast-actions">
-          <span class="podcast-duration">38 min</span>
-          <button class="play-btn" title="Play">&#9654;</button>
-        </div>
-      </div>
-
-      <div class="podcast-card">
-        <div class="podcast-cover" style="background: linear-gradient(135deg, #16a34a, #0d9488);">&#127897;</div>
-        <div class="podcast-info">
-          <div class="podcast-show">The Data Centre Podcast</div>
-          <div class="podcast-title">Power Grid Constraints: The Biggest Threat to DC Growth</div>
-          <div class="podcast-desc">Exploring how power availability is becoming the single biggest bottleneck for new development across NA and Europe.</div>
-        </div>
-        <div class="podcast-actions">
-          <span class="podcast-duration">51 min</span>
-          <button class="play-btn" title="Play">&#9654;</button>
-        </div>
-      </div>
-    </div>
-  </section>
+  
 
 </main>
 
-<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
     <div>
       <div class="footer-brand">DC Morning Brief</div>
-      <div class="footer-copy">&copy; 2026 &mdash; Data centre intelligence, delivered daily.</div>
+      <div class="footer-copy">&copy; 2026 &mdash; Data centre intelligence, delivered daily. Auto-generated from RSS feeds.</div>
     </div>
     <div class="footer-links">
       <a href="#">Archive</a>
-      <a href="#">Subscribe</a>
-      <a href="#">About</a>
     </div>
   </div>
 </footer>
 
 <script>
-  // ---- DATE & GREETING ----
-  const now = new Date();
-  const dateOpts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  document.getElementById('dateDisplay').textContent = now.toLocaleDateString('en-GB', dateOpts).toUpperCase();
-
-  const hour = now.getHours();
-  let greetText = 'Good Morning';
-  if (hour >= 12 && hour < 17) greetText = 'Good Afternoon';
-  else if (hour >= 17) greetText = 'Good Evening';
-  document.getElementById('greeting').innerHTML = `<em>${greetText}. Here's what's moving the industry today.</em>`;
-
-  // ---- MARKETS TICKER ----
-  const markets = [
-    { sym: 'EQIX', price: '$892.34', change: '+1.87%', up: true },
-    { sym: 'DLR', price: '$156.21', change: '+0.94%', up: true },
-    { sym: 'AMT', price: '$198.45', change: '-0.32%', up: false },
-    { sym: 'GOOGL', price: '$306.36', change: '-0.05%', up: false },
-    { sym: 'MSFT', price: '$409.41', change: '+2.72%', up: true },
-    { sym: 'AMZN', price: '$213.49', change: '+2.45%', up: true },
-    { sym: 'NVDA', price: '$138.85', change: '+3.14%', up: true },
-    { sym: 'META', price: '$612.78', change: '+1.23%', up: true },
-    { sym: 'CCI', price: '$112.67', change: '-0.41%', up: false },
-    { sym: 'SBAC', price: '$221.89', change: '+0.67%', up: true },
-  ];
-
-  const mTrack = document.getElementById('marketsTrack');
-  const mItems = [...markets, ...markets]; // duplicate for seamless loop
-  mTrack.innerHTML = mItems.map(m =>
-    `<span class="market-item">
-      <span class="market-symbol">${m.sym}</span>
-      <span class="market-price">${m.price}</span>
-      <span class="market-change ${m.up ? 'up' : 'down'}">${m.up ? '&#8599;' : '&#8600;'} ${m.change}</span>
-    </span>`
-  ).join('');
-
-  // ---- THEME TOGGLE ----
   function toggleTheme() {
     const html = document.documentElement;
     const isDark = html.getAttribute('data-theme') === 'dark';
@@ -1520,44 +1593,20 @@
     document.getElementById('themeBtn').textContent = isDark ? '\u263D' : '\u2600';
     localStorage.setItem('dcbrief-theme', isDark ? 'light' : 'dark');
   }
-
-  // Load saved theme
   const saved = localStorage.getItem('dcbrief-theme');
   if (saved === 'dark') {
     document.documentElement.setAttribute('data-theme', 'dark');
     document.getElementById('themeBtn').textContent = '\u2600';
   }
-
-  // ---- VIEW TOGGLE ----
   function setView(mode, btn) {
     document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const main = document.getElementById('mainContent');
-    if (mode === 'bite') {
-      main.classList.add('bite-sized');
-    } else {
-      main.classList.remove('bite-sized');
-    }
+    if (mode === 'bite') { main.classList.add('bite-sized'); } else { main.classList.remove('bite-sized'); }
   }
-
-  // ---- DEALS FILTER ----
-  function filterDeals(type, btn) {
-    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('#dealsBody tr').forEach(row => {
-      row.style.display = (type === 'all' || row.dataset.type === type) ? '' : 'none';
-    });
-  }
-
-  // ---- SCROLL ANIMATIONS ----
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
   }, { threshold: 0.05 });
-
   document.querySelectorAll('.anim-in').forEach(el => observer.observe(el));
 </script>
 </body>
