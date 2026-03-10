@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DC Morning Brief — Data Centre Daily Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Light mode defaults */
+    --bg-body: #f6f5f0;
+    --bg-surface: #ffffff;
+    --bg-surface-alt: #faf9f6;
+    --bg-inset: #f0efe9;
+    --bg-ticker: #1a1f2e;
+    --border-main: #e5e3dc;
+    --border-light: #eeece5;
+    --border-rule: #d4d1c7;
+    --text-headline: #1a1a1a;
+    --text-body: #3a3a3a;
+    --text-secondary: #6b6b6b;
+    --text-muted: #9a9a9a;
+    --text-inverse: #ffffff;
+    --accent-blue: #2563eb;
+    --accent-green: #16a34a;
+    --accent-red: #dc2626;
+    --accent-amber: #d97706;
+    --accent-violet: #7c3aed;
+    --accent-cyan: #0891b2;
+    --accent-rose: #e11d48;
+    --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+    --radius: 8px;
+  }
+
+  [data-theme="dark"] {
+    --bg-body: #0f1117;
+    --bg-surface: #1a1d27;
+    --bg-surface-alt: #15171f;
+    --bg-inset: #111318;
+    --bg-ticker: #0a0c12;
+    --border-main: rgba(255,255,255,0.08);
+    --border-light: rgba(255,255,255,0.05);
+    --border-rule: rgba(255,255,255,0.1);
+    --text-headline: #f0f0f0;
+    --text-body: #c8c8c8;
+    --text-secondary: #8a8a8a;
+    --text-muted: #5a5a5a;
+    --shadow-card: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-card-hover: 0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+
+  /* ==================== MARKETS TICKER ==================== */
+  .markets-bar {
+    background: var(--bg-ticker);
+    height: 36px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .markets-label {
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #4ade80;
+    padding: 0 20px;
+    font-family: 'JetBrains Mono', monospace;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .markets-track-wrapper {
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .markets-track {
+    display: flex;
+    animation: scrollMarkets 40s linear infinite;
+    white-space: nowrap;
+  }
+
+  .market-item {
+    flex-shrink: 0;
+    padding: 0 24px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(255,255,255,0.7);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .market-symbol {
+    font-weight: 600;
+    color: rgba(255,255,255,0.95);
+  }
+
+  .market-price { color: rgba(255,255,255,0.6); }
+  .market-change { font-weight: 500; font-size: 11px; }
+  .market-change.up { color: #4ade80; }
+  .market-change.down { color: #f87171; }
+
+  @keyframes scrollMarkets {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ==================== HEADER / MASTHEAD ==================== */
+  .header {
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-main);
+  }
+
+  .header-toolbar {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .edition-no {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+  }
+
+  .toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .toolbar-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid var(--border-main);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .toolbar-btn:hover {
+    background: var(--bg-inset);
+    color: var(--text-headline);
+  }
+
+  .toolbar-btn.theme-toggle {
+    width: 34px;
+    padding: 6px;
+    justify-content: center;
+  }
+
+  .masthead {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 32px 32px;
+    text-align: center;
+  }
+
+  .masthead-rule {
+    height: 4px;
+    background: var(--text-headline);
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .masthead-rule::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--text-headline);
+  }
+
+  .masthead-title {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: clamp(42px, 7vw, 72px);
+    font-weight: 900;
+    color: var(--text-headline);
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .masthead-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .masthead-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 8px 0;
+    border-top: 1px solid var(--border-rule);
+    border-bottom: 1px solid var(--border-rule);
+    display: inline-block;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .masthead-greeting {
+    font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--text-secondary);
+    margin-top: 20px;
+  }
+
+  /* View toggle */
+  .view-toggle-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+  }
+
+  .view-toggle {
+    display: inline-flex;
+    background: var(--bg-inset);
+    border-radius: 8px;
+    padding: 4px;
+    border: 1px solid var(--border-main);
+  }
+
+  .view-btn {
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-secondary);
+    transition: all 0.25s;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .view-btn.active {
+    background: var(--bg-surface);
+    color: var(--text-headline);
+    box-shadow: var(--shadow-card);
+    font-weight: 600;
+  }
+
+  .masthead-rule-bottom {
+    max-width: 960px;
+    margin: 0 auto;
+    height: 3px;
+    background: var(--text-headline);
+    position: relative;
+  }
+
+  .masthead-rule-bottom::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border-rule);
+  }
+
+  /* ==================== MAIN CONTENT ==================== */
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 32px;
+  }
+
+  /* ---- SECTION ---- */
+  .section {
+    margin-bottom: 56px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .label-top { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+  .label-deals { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+  .label-land { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+  .label-meta { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+  .label-podcast { background: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe; }
+  .label-news { background: #ecfeff; color: #0891b2; border: 1px solid #a5f3fc; }
+
+  [data-theme="dark"] .label-top { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.25); }
+  [data-theme="dark"] .label-deals { background: rgba(22,163,74,0.12); border-color: rgba(22,163,74,0.25); }
+  [data-theme="dark"] .label-land { background: rgba(217,119,6,0.12); border-color: rgba(217,119,6,0.25); }
+  [data-theme="dark"] .label-meta { background: rgba(37,99,235,0.12); border-color: rgba(37,99,235,0.25); }
+  [data-theme="dark"] .label-podcast { background: rgba(124,58,237,0.12); border-color: rgba(124,58,237,0.25); }
+  [data-theme="dark"] .label-news { background: rgba(8,145,178,0.12); border-color: rgba(8,145,178,0.25); }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border-rule);
+  }
+
+  .section-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  /* ---- STATS STRIP ---- */
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border-main);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 56px;
+  }
+
+  .stat-cell {
+    background: var(--bg-surface);
+    padding: 20px 24px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+
+  .stat-cell:hover {
+    background: var(--bg-surface-alt);
+  }
+
+  .stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-headline);
+    letter-spacing: -1px;
+  }
+
+  .stat-delta {
+    font-size: 11px;
+    font-weight: 500;
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .delta-up { color: var(--accent-green); }
+  .delta-down { color: var(--accent-red); }
+
+  /* ---- HERO STORY ---- */
+  .hero-story {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 24px;
+    align-items: center;
+  }
+
+  .hero-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 50%, #a5b4fc 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    border: 1px solid var(--border-main);
+    position: relative;
+  }
+
+  .hero-image::after {
+    content: 'FEATURED';
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: var(--accent-red);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .hero-content {}
+
+  .hero-tag {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent-red);
+    margin-bottom: 12px;
+  }
+
+  .hero-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--text-headline);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-excerpt {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .story-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .story-source {
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .meta-divider {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--text-muted);
+  }
+
+  /* ---- NEWS LIST ---- */
+  .news-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .news-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-light);
+    align-items: start;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 6px;
+  }
+
+  .news-item:hover {
+    background: var(--bg-surface-alt);
+  }
+
+  .news-item:last-child {
+    border-bottom: none;
+  }
+
+  .news-number {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--border-rule);
+    line-height: 1;
+    width: 36px;
+    text-align: center;
+    padding-top: 2px;
+  }
+
+  .news-body {}
+
+  .news-tag {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+
+  .tag-breaking { background: #fef2f2; color: #dc2626; }
+  .tag-deals { background: #f0fdf4; color: #16a34a; }
+  .tag-land { background: #fffbeb; color: #d97706; }
+  .tag-meta-partner { background: #eff6ff; color: #2563eb; }
+  .tag-infra { background: #ecfeff; color: #0891b2; }
+  .tag-energy { background: #fefce8; color: #a16207; }
+  .tag-sustainability { background: #f0fdf4; color: #15803d; }
+
+  [data-theme="dark"] .tag-breaking { background: rgba(220,38,38,0.15); }
+  [data-theme="dark"] .tag-deals { background: rgba(22,163,74,0.15); }
+  [data-theme="dark"] .tag-land { background: rgba(217,119,6,0.15); }
+  [data-theme="dark"] .tag-meta-partner { background: rgba(37,99,235,0.15); }
+  [data-theme="dark"] .tag-infra { background: rgba(8,145,178,0.15); }
+  [data-theme="dark"] .tag-energy { background: rgba(254,252,232,0.1); color: #fbbf24; }
+  [data-theme="dark"] .tag-sustainability { background: rgba(22,163,74,0.15); }
+
+  .news-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-headline);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .news-snippet {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .news-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    padding-top: 4px;
+  }
+
+  /* ---- DEALS TABLE ---- */
+  .deals-wrapper {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .deals-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .deals-table thead th {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 2px solid var(--border-main);
+    background: var(--bg-surface-alt);
+    white-space: nowrap;
+  }
+
+  .deals-table tbody tr {
+    border-bottom: 1px solid var(--border-light);
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+
+  .deals-table tbody tr:last-child { border-bottom: none; }
+  .deals-table tbody tr:hover { background: var(--bg-surface-alt); }
+
+  .deals-table td {
+    padding: 16px 20px;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+
+  .deal-parties {
+    font-weight: 600;
+    color: var(--text-headline);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .deal-arrow { color: var(--text-muted); font-size: 11px; }
+
+  .deal-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--accent-green);
+  }
+
+  .deal-status {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .status-active { background: #f0fdf4; color: #16a34a; }
+  .status-pending { background: #fffbeb; color: #d97706; }
+  .status-closed { background: #eff6ff; color: #2563eb; }
+  .status-rumoured { background: #f5f3ff; color: #7c3aed; }
+
+  [data-theme="dark"] .status-active { background: rgba(22,163,74,0.12); }
+  [data-theme="dark"] .status-pending { background: rgba(217,119,6,0.12); }
+  [data-theme="dark"] .status-closed { background: rgba(37,99,235,0.12); }
+  [data-theme="dark"] .status-rumoured { background: rgba(124,58,237,0.12); }
+
+  .deal-type {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .filter-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .filter-tab {
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--border-main);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .filter-tab:hover { border-color: var(--text-muted); color: var(--text-headline); }
+  .filter-tab.active { background: var(--text-headline); color: var(--bg-surface); border-color: var(--text-headline); }
+
+  /* ---- LAND ACQUISITIONS ---- */
+  .land-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .land-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .land-card:hover {
+    border-color: var(--accent-amber);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+  }
+
+  .land-flag {
+    font-size: 32px;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .land-info {}
+
+  .land-location {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-headline);
+    margin-bottom: 2px;
+  }
+
+  .land-detail {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .land-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+  }
+
+  .land-spec {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .land-spec strong {
+    color: var(--text-headline);
+  }
+
+  /* ---- META PARTNERS ---- */
+  .partners-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .partner-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .partner-card:hover {
+    border-color: var(--accent-blue);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+  }
+
+  .partner-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .partner-info { flex: 1; }
+
+  .partner-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-headline);
+    margin-bottom: 2px;
+  }
+
+  .partner-role {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .partner-update {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .partner-pulse {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-green);
+  }
+
+  .partner-pulse::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-green);
+    animation: pulse 2s ease-out infinite;
+    opacity: 0;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+
+  /* ---- PODCASTS ---- */
+  .podcast-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .podcast-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 52px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .podcast-card:hover {
+    border-color: var(--accent-violet);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+  }
+
+  .podcast-cover {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .podcast-info {}
+
+  .podcast-show {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .podcast-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-headline);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .podcast-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .podcast-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .podcast-duration {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .play-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-violet);
+    background: transparent;
+    color: var(--accent-violet);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .play-btn:hover {
+    background: var(--accent-violet);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px;
+    border-top: 3px solid var(--text-headline);
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-headline);
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent-blue); }
+
+  /* ---- BITE-SIZED VIEW ---- */
+  .bite-sized .hero-story { display: none; }
+  .bite-sized .news-snippet { display: none; }
+  .bite-sized .news-item { padding: 12px 16px; }
+  .bite-sized .news-headline { font-size: 15px; }
+  .bite-sized .deals-table .deal-type { display: none; }
+  .bite-sized .land-detail { display: none; }
+  .bite-sized .podcast-desc { display: none; }
+  .bite-sized .partner-update { display: none; }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    .hero-story { grid-template-columns: 1fr; }
+    .partners-grid { grid-template-columns: 1fr; }
+    .main { padding: 24px 20px; }
+    .masthead { padding: 24px 20px 20px; }
+    .header-toolbar { padding: 10px 20px; }
+    .masthead-title { font-size: 42px; }
+    .deals-wrapper { overflow-x: auto; }
+    .land-card { grid-template-columns: 1fr; }
+    .land-flag { display: none; }
+    .land-specs { flex-direction: row; gap: 12px; text-align: left; }
+    .podcast-card { grid-template-columns: 1fr auto; }
+    .podcast-cover { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .stats-strip { grid-template-columns: 1fr; }
+    .toolbar-actions .toolbar-btn:not(.theme-toggle) { display: none; }
+    .news-number { display: none; }
+    .news-item { grid-template-columns: 1fr auto; }
+  }
+
+  /* ---- ANIMATIONS ---- */
+  .anim-in {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  .anim-in.visible {
+    animation: slideIn 0.4s ease forwards;
+  }
+
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- MARKETS TICKER -->
+<div class="markets-bar">
+  <div class="markets-label">Markets</div>
+  <div class="markets-track-wrapper">
+    <div class="markets-track" id="marketsTrack"></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-toolbar">
+    <span class="edition-no">NO. 432</span>
+    <div class="toolbar-actions">
+      <button class="toolbar-btn" title="Share">&#128279; Share</button>
+      <button class="toolbar-btn" title="Subscribe">&#128231; Subscribe</button>
+      <button class="toolbar-btn theme-toggle" onclick="toggleTheme()" title="Toggle theme" id="themeBtn">&#9789;</button>
+    </div>
+  </div>
+
+  <div class="masthead">
+    <div class="masthead-rule"></div>
+    <h1 class="masthead-title">DC Morning Brief</h1>
+    <p class="masthead-subtitle">Your daily data centre industry intelligence</p>
+    <div class="masthead-date" id="dateDisplay"></div>
+    <p class="masthead-greeting" id="greeting"></p>
+
+    <div class="view-toggle-container">
+      <div class="view-toggle">
+        <button class="view-btn active" onclick="setView('full', this)">&#128196; Full Brief</button>
+        <button class="view-btn" onclick="setView('bite', this)">&#9889; Bite-Sized</button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="masthead-rule-bottom"></div>
+
+<!-- MAIN -->
+<main class="main" id="mainContent">
+
+  <!-- STATS -->
+  <div class="stats-strip anim-in">
+    <div class="stat-cell">
+      <div class="stat-label">Active DC Deals</div>
+      <div class="stat-value">47</div>
+      <div class="stat-delta delta-up">+12% WoW</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Global MW Pipeline</div>
+      <div class="stat-value">8.4 GW</div>
+      <div class="stat-delta delta-up">+3.1% MoM</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Land Deals This Week</div>
+      <div class="stat-value">14</div>
+      <div class="stat-delta delta-down">-2 WoW</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">YTD Investment</div>
+      <div class="stat-value">$82B</div>
+      <div class="stat-delta delta-up">+24% YoY</div>
+    </div>
+  </div>
+
+  <!-- TOP STORIES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-top">&#9889; Top Stories</span>
+      <div class="section-rule"></div>
+      <span class="section-count">5 stories</span>
+    </div>
+
+    <div class="hero-story anim-in">
+      <div class="hero-image">&#127967;</div>
+      <div class="hero-content">
+        <div class="hero-tag">&#9679; Breaking News</div>
+        <h2 class="hero-headline">Equinix Announces $22B Hyperscale Campus in Northern Virginia with 500MW Capacity</h2>
+        <p class="hero-excerpt">The data centre giant is set to break ground on one of the largest campus developments in the US, targeting AI and cloud workloads. The facility will feature advanced liquid cooling infrastructure and is expected to be operational by Q3 2027.</p>
+        <div class="story-meta">
+          <span class="story-source">DatacenterDynamics</span>
+          <span class="meta-divider"></span>
+          <span>4 min read</span>
+          <span class="meta-divider"></span>
+          <span>2 hours ago</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="news-list anim-in">
+      <div class="news-item">
+        <div class="news-number">2</div>
+        <div class="news-body">
+          <span class="news-tag tag-deals">Deal</span>
+          <div class="news-headline">DigitalBridge Closes $4.1B Fund Targeting European DC Assets</div>
+          <div class="news-snippet">The infrastructure investor has exceeded its initial target, with commitments from major sovereign wealth funds and pension plans across Europe and the Middle East.</div>
+        </div>
+        <div class="news-time">3h ago</div>
+      </div>
+
+      <div class="news-item">
+        <div class="news-number">3</div>
+        <div class="news-body">
+          <span class="news-tag tag-meta-partner">Meta Partner</span>
+          <div class="news-headline">EdgeConneX Expands Meta Colocation Footprint Across APAC</div>
+          <div class="news-snippet">Three new facilities planned in Jakarta, Manila, and Bangkok to support Meta's growing regional infrastructure demands for AI workloads.</div>
+        </div>
+        <div class="news-time">5h ago</div>
+      </div>
+
+      <div class="news-item">
+        <div class="news-number">4</div>
+        <div class="news-body">
+          <span class="news-tag tag-energy">Energy</span>
+          <div class="news-headline">Microsoft Signs 20-Year Nuclear PPA With Constellation Energy</div>
+          <div class="news-snippet">Deal to restart Three Mile Island Unit 1 reactor marks a milestone in hyperscaler nuclear power procurement strategies.</div>
+        </div>
+        <div class="news-time">6h ago</div>
+      </div>
+
+      <div class="news-item">
+        <div class="news-number">5</div>
+        <div class="news-body">
+          <span class="news-tag tag-infra">Infrastructure</span>
+          <div class="news-headline">NVIDIA's Next-Gen Networking Chips Target 800G DC Interconnects</div>
+          <div class="news-snippet">NVIDIA unveils ConnectX-8 and BlueField-4 DPUs designed for AI-optimised data centre fabrics, promising 2x bandwidth improvements.</div>
+        </div>
+        <div class="news-time">8h ago</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEALS & M&A -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-deals">&#128200; Deals &amp; M&amp;A</span>
+      <div class="section-rule"></div>
+      <span class="section-count">6 active</span>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-tab active" onclick="filterDeals('all', this)">All</button>
+      <button class="filter-tab" onclick="filterDeals('acquisition', this)">Acquisitions</button>
+      <button class="filter-tab" onclick="filterDeals('merger', this)">Mergers</button>
+      <button class="filter-tab" onclick="filterDeals('investment', this)">Investments</button>
+      <button class="filter-tab" onclick="filterDeals('jv', this)">Joint Ventures</button>
+    </div>
+
+    <div class="deals-wrapper anim-in">
+      <table class="deals-table">
+        <thead>
+          <tr>
+            <th>Parties</th>
+            <th>Type</th>
+            <th>Value</th>
+            <th>Status</th>
+            <th>Region</th>
+          </tr>
+        </thead>
+        <tbody id="dealsBody">
+          <tr data-type="acquisition">
+            <td><div class="deal-parties">GLP Capital <span class="deal-arrow">&#8594;</span> CyrusOne APAC</div></td>
+            <td><span class="deal-type">Acquisition</span></td>
+            <td><span class="deal-value">$3.8B</span></td>
+            <td><span class="deal-status status-active">&#9679; Active</span></td>
+            <td>Asia-Pacific</td>
+          </tr>
+          <tr data-type="merger">
+            <td><div class="deal-parties">QTS Realty <span class="deal-arrow">&#8596;</span> Vantage Europe</div></td>
+            <td><span class="deal-type">Merger</span></td>
+            <td><span class="deal-value">$6.2B</span></td>
+            <td><span class="deal-status status-pending">&#9679; Pending</span></td>
+            <td>Global</td>
+          </tr>
+          <tr data-type="investment">
+            <td><div class="deal-parties">Brookfield <span class="deal-arrow">&#8594;</span> AirTrunk</div></td>
+            <td><span class="deal-type">Investment</span></td>
+            <td><span class="deal-value">$2.1B</span></td>
+            <td><span class="deal-status status-closed">&#9679; Closed</span></td>
+            <td>APAC</td>
+          </tr>
+          <tr data-type="acquisition">
+            <td><div class="deal-parties">Blackstone <span class="deal-arrow">&#8594;</span> DataBank</div></td>
+            <td><span class="deal-type">Acquisition</span></td>
+            <td><span class="deal-value">$7.5B</span></td>
+            <td><span class="deal-status status-rumoured">&#9679; Rumoured</span></td>
+            <td>North America</td>
+          </tr>
+          <tr data-type="jv">
+            <td><div class="deal-parties">NTT + Mitsubishi</div></td>
+            <td><span class="deal-type">Joint Venture</span></td>
+            <td><span class="deal-value">$1.4B</span></td>
+            <td><span class="deal-status status-active">&#9679; Active</span></td>
+            <td>Japan</td>
+          </tr>
+          <tr data-type="investment">
+            <td><div class="deal-parties">KKR <span class="deal-arrow">&#8594;</span> Global Switch</div></td>
+            <td><span class="deal-type">Investment</span></td>
+            <td><span class="deal-value">$4.9B</span></td>
+            <td><span class="deal-status status-pending">&#9679; Pending</span></td>
+            <td>Europe</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- LAND & DEVELOPMENT -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-land">&#127759; Land &amp; Development</span>
+      <div class="section-rule"></div>
+      <span class="section-count">4 new sites</span>
+    </div>
+
+    <div class="land-list anim-in">
+      <div class="land-card">
+        <div class="land-flag">&#127463;&#127466;</div>
+        <div class="land-info">
+          <div class="land-location">Ghent, Belgium</div>
+          <div class="land-detail">Google secures 100-hectare site for hyperscale campus near industrial canal zone, marking their largest European land deal this year.</div>
+        </div>
+        <div class="land-specs">
+          <span class="land-spec">&#9889; <strong>150MW</strong></span>
+          <span class="land-spec">&#128207; <strong>100 ha</strong></span>
+          <span class="land-spec">&#128197; Q1 2028</span>
+        </div>
+      </div>
+
+      <div class="land-card">
+        <div class="land-flag">&#127482;&#127480;</div>
+        <div class="land-info">
+          <div class="land-location">Mesa, Arizona, USA</div>
+          <div class="land-detail">Meta acquires 640 acres of desert land for next-generation AI data centre campus with dedicated solar farm.</div>
+        </div>
+        <div class="land-specs">
+          <span class="land-spec">&#9889; <strong>300MW</strong></span>
+          <span class="land-spec">&#128207; <strong>640 ac</strong></span>
+          <span class="land-spec">&#128197; Q4 2027</span>
+        </div>
+      </div>
+
+      <div class="land-card">
+        <div class="land-flag">&#127470;&#127475;</div>
+        <div class="land-info">
+          <div class="land-location">Hyderabad, India</div>
+          <div class="land-detail">AWS signs MOU for 50-acre campus in Telangana IT corridor with state incentives package worth $120M.</div>
+        </div>
+        <div class="land-specs">
+          <span class="land-spec">&#9889; <strong>80MW</strong></span>
+          <span class="land-spec">&#128207; <strong>50 ac</strong></span>
+          <span class="land-spec">&#128197; Q2 2028</span>
+        </div>
+      </div>
+
+      <div class="land-card">
+        <div class="land-flag">&#127468;&#127463;</div>
+        <div class="land-info">
+          <div class="land-location">Sunderland, UK</div>
+          <div class="land-detail">Microsoft confirms 35-acre plot near Nissan plant for Northern Powerhouse DC cluster with grid connection secured.</div>
+        </div>
+        <div class="land-specs">
+          <span class="land-spec">&#9889; <strong>60MW</strong></span>
+          <span class="land-spec">&#128207; <strong>35 ac</strong></span>
+          <span class="land-spec">&#128197; Q3 2027</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- META PARTNERS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-meta">&#129309; Meta Partners</span>
+      <div class="section-rule"></div>
+      <span class="section-count">4 updates</span>
+    </div>
+
+    <div class="partners-grid anim-in">
+      <div class="partner-card">
+        <div class="partner-pulse"></div>
+        <div class="partner-icon" style="background: linear-gradient(135deg, #2563eb, #0891b2);">EC</div>
+        <div class="partner-info">
+          <div class="partner-name">EdgeConneX</div>
+          <div class="partner-role">Colocation &amp; Edge</div>
+          <div class="partner-update">3 new APAC sites for Meta workloads announced — Jakarta, Manila, and Bangkok facilities in planning.</div>
+        </div>
+      </div>
+
+      <div class="partner-card">
+        <div class="partner-pulse"></div>
+        <div class="partner-icon" style="background: linear-gradient(135deg, #16a34a, #0891b2);">QT</div>
+        <div class="partner-info">
+          <div class="partner-name">QTS Realty</div>
+          <div class="partner-role">Hyperscale Leasing</div>
+          <div class="partner-update">200MW expansion in Ashburn campus entering Phase 2 build-out, with Meta as anchor tenant for 80MW block.</div>
+        </div>
+      </div>
+
+      <div class="partner-card">
+        <div class="partner-icon" style="background: linear-gradient(135deg, #d97706, #ea580c);">CO</div>
+        <div class="partner-info">
+          <div class="partner-name">CyrusOne</div>
+          <div class="partner-role">Enterprise &amp; Cloud</div>
+          <div class="partner-update">Frankfurt facility upgrade complete — 40MW added capacity now online supporting Meta's European operations.</div>
+        </div>
+      </div>
+
+      <div class="partner-card">
+        <div class="partner-icon" style="background: linear-gradient(135deg, #7c3aed, #6366f1);">DR</div>
+        <div class="partner-info">
+          <div class="partner-name">Digital Realty</div>
+          <div class="partner-role">Interconnection</div>
+          <div class="partner-update">New PlatformDIGITAL hub in Singapore supporting Meta peering with 15+ network providers.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRY NEWS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-news">&#128240; Industry Roundup</span>
+      <div class="section-rule"></div>
+      <span class="section-count">4 stories</span>
+    </div>
+
+    <div class="news-list anim-in">
+      <div class="news-item">
+        <div class="news-number">1</div>
+        <div class="news-body">
+          <span class="news-tag tag-sustainability">Sustainability</span>
+          <div class="news-headline">EU Proposes Mandatory Carbon Reporting for Data Centres Over 1MW</div>
+          <div class="news-snippet">New regulation would require all major EU data centres to report Scope 1-3 emissions quarterly, with penalties starting 2027.</div>
+        </div>
+        <div class="news-time">Reuters</div>
+      </div>
+      <div class="news-item">
+        <div class="news-number">2</div>
+        <div class="news-body">
+          <span class="news-tag tag-infra">Construction</span>
+          <div class="news-headline">Modular DC Construction Boom: Prefab Facilities Cut Build Time by 40%</div>
+          <div class="news-snippet">Major builders report modular approaches are slashing deployment timelines, with facilities going live in under 12 months.</div>
+        </div>
+        <div class="news-time">DCD</div>
+      </div>
+      <div class="news-item">
+        <div class="news-number">3</div>
+        <div class="news-body">
+          <span class="news-tag tag-infra">Cooling</span>
+          <div class="news-headline">Vertiv Reports 300% Surge in Liquid Cooling Orders for 2025</div>
+          <div class="news-snippet">GPU-dense AI racks are driving unprecedented demand for direct-to-chip and immersion cooling solutions across all major markets.</div>
+        </div>
+        <div class="news-time">Uptime Institute</div>
+      </div>
+      <div class="news-item">
+        <div class="news-number">4</div>
+        <div class="news-body">
+          <span class="news-tag tag-meta-partner">Meta</span>
+          <div class="news-headline">Meta Targets 100% Renewable Energy Matching Across All DCs by 2030</div>
+          <div class="news-snippet">Updated sustainability roadmap includes hourly energy matching, next-gen heat recovery systems, and water-positive commitments.</div>
+        </div>
+        <div class="news-time">Meta Blog</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PODCASTS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-podcast">&#127911; Podcast Picks</span>
+      <div class="section-rule"></div>
+      <span class="section-count">3 episodes</span>
+    </div>
+
+    <div class="podcast-list anim-in">
+      <div class="podcast-card">
+        <div class="podcast-cover" style="background: linear-gradient(135deg, #e11d48, #ec4899);">&#127897;</div>
+        <div class="podcast-info">
+          <div class="podcast-show">Infrastructure Investor Podcast</div>
+          <div class="podcast-title">The AI Gold Rush: Who's Actually Building the Data Centres?</div>
+          <div class="podcast-desc">An in-depth look at capital flows into DC infrastructure, the real players, and what happens when supply catches demand.</div>
+        </div>
+        <div class="podcast-actions">
+          <span class="podcast-duration">42 min</span>
+          <button class="play-btn" title="Play">&#9654;</button>
+        </div>
+      </div>
+
+      <div class="podcast-card">
+        <div class="podcast-cover" style="background: linear-gradient(135deg, #2563eb, #0891b2);">&#127897;</div>
+        <div class="podcast-info">
+          <div class="podcast-show">Datacenter Frontier</div>
+          <div class="podcast-title">Liquid Cooling at Scale: Lessons From the Hyperscalers</div>
+          <div class="podcast-desc">Engineers from leading operators discuss the shift from air to liquid cooling and implications for rack density.</div>
+        </div>
+        <div class="podcast-actions">
+          <span class="podcast-duration">38 min</span>
+          <button class="play-btn" title="Play">&#9654;</button>
+        </div>
+      </div>
+
+      <div class="podcast-card">
+        <div class="podcast-cover" style="background: linear-gradient(135deg, #16a34a, #0d9488);">&#127897;</div>
+        <div class="podcast-info">
+          <div class="podcast-show">The Data Centre Podcast</div>
+          <div class="podcast-title">Power Grid Constraints: The Biggest Threat to DC Growth</div>
+          <div class="podcast-desc">Exploring how power availability is becoming the single biggest bottleneck for new development across NA and Europe.</div>
+        </div>
+        <div class="podcast-actions">
+          <span class="podcast-duration">51 min</span>
+          <button class="play-btn" title="Play">&#9654;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">DC Morning Brief</div>
+      <div class="footer-copy">&copy; 2026 &mdash; Data centre intelligence, delivered daily.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">Archive</a>
+      <a href="#">Subscribe</a>
+      <a href="#">About</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- DATE & GREETING ----
+  const now = new Date();
+  const dateOpts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('dateDisplay').textContent = now.toLocaleDateString('en-GB', dateOpts).toUpperCase();
+
+  const hour = now.getHours();
+  let greetText = 'Good Morning';
+  if (hour >= 12 && hour < 17) greetText = 'Good Afternoon';
+  else if (hour >= 17) greetText = 'Good Evening';
+  document.getElementById('greeting').innerHTML = `<em>${greetText}. Here's what's moving the industry today.</em>`;
+
+  // ---- MARKETS TICKER ----
+  const markets = [
+    { sym: 'EQIX', price: '$892.34', change: '+1.87%', up: true },
+    { sym: 'DLR', price: '$156.21', change: '+0.94%', up: true },
+    { sym: 'AMT', price: '$198.45', change: '-0.32%', up: false },
+    { sym: 'GOOGL', price: '$306.36', change: '-0.05%', up: false },
+    { sym: 'MSFT', price: '$409.41', change: '+2.72%', up: true },
+    { sym: 'AMZN', price: '$213.49', change: '+2.45%', up: true },
+    { sym: 'NVDA', price: '$138.85', change: '+3.14%', up: true },
+    { sym: 'META', price: '$612.78', change: '+1.23%', up: true },
+    { sym: 'CCI', price: '$112.67', change: '-0.41%', up: false },
+    { sym: 'SBAC', price: '$221.89', change: '+0.67%', up: true },
+  ];
+
+  const mTrack = document.getElementById('marketsTrack');
+  const mItems = [...markets, ...markets]; // duplicate for seamless loop
+  mTrack.innerHTML = mItems.map(m =>
+    `<span class="market-item">
+      <span class="market-symbol">${m.sym}</span>
+      <span class="market-price">${m.price}</span>
+      <span class="market-change ${m.up ? 'up' : 'down'}">${m.up ? '&#8599;' : '&#8600;'} ${m.change}</span>
+    </span>`
+  ).join('');
+
+  // ---- THEME TOGGLE ----
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('themeBtn').textContent = isDark ? '\u263D' : '\u2600';
+    localStorage.setItem('dcbrief-theme', isDark ? 'light' : 'dark');
+  }
+
+  // Load saved theme
+  const saved = localStorage.getItem('dcbrief-theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('themeBtn').textContent = '\u2600';
+  }
+
+  // ---- VIEW TOGGLE ----
+  function setView(mode, btn) {
+    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const main = document.getElementById('mainContent');
+    if (mode === 'bite') {
+      main.classList.add('bite-sized');
+    } else {
+      main.classList.remove('bite-sized');
+    }
+  }
+
+  // ---- DEALS FILTER ----
+  function filterDeals(type, btn) {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#dealsBody tr').forEach(row => {
+      row.style.display = (type === 'all' || row.dataset.type === type) ? '' : 'none';
+    });
+  }
+
+  // ---- SCROLL ANIMATIONS ----
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.05 });
+
+  document.querySelectorAll('.anim-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
