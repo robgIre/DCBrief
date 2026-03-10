@@ -1,31 +1,24 @@
 name: Daily DC Brief Update
-
-  on:
+on:
     schedule:
       - cron: '0 8 * * *'
     workflow_dispatch:
-
-  permissions:
+permissions:
     contents: write
-
-  jobs:
+jobs:
     update-brief:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout repository
           uses: actions/checkout@v4
-
         - name: Set up Python
           uses: actions/setup-python@v5
           with:
             python-version: '3.12'
-
         - name: Install dependencies
           run: pip install -r requirements.txt
-
         - name: Run update script
           run: python update.py
-
         - name: Commit and push changes
           run: |
             git config user.name "DC Brief Bot"
