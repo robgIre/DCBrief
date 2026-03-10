@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DC Morning Brief — Data Centre Daily Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-body: #f6f5f0;
+    --bg-surface: #ffffff;
+    --bg-surface-alt: #faf9f6;
+    --bg-inset: #f0efe9;
+    --bg-ticker: #1a1f2e;
+    --border-main: #e5e3dc;
+    --border-light: #eeece5;
+    --border-rule: #d4d1c7;
+    --text-headline: #1a1a1a;
+    --text-body: #3a3a3a;
+    --text-secondary: #6b6b6b;
+    --text-muted: #9a9a9a;
+    --text-inverse: #ffffff;
+    --accent-blue: #2563eb;
+    --accent-green: #16a34a;
+    --accent-red: #dc2626;
+    --accent-amber: #d97706;
+    --accent-violet: #7c3aed;
+    --accent-cyan: #0891b2;
+    --accent-rose: #e11d48;
+    --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+    --radius: 8px;
+  }
+  [data-theme="dark"] {
+    --bg-body: #0f1117;
+    --bg-surface: #1a1d27;
+    --bg-surface-alt: #15171f;
+    --bg-inset: #111318;
+    --bg-ticker: #0a0c12;
+    --border-main: rgba(255,255,255,0.08);
+    --border-light: rgba(255,255,255,0.05);
+    --border-rule: rgba(255,255,255,0.1);
+    --text-headline: #f0f0f0;
+    --text-body: #c8c8c8;
+    --text-secondary: #8a8a8a;
+    --text-muted: #5a5a5a;
+    --shadow-card: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-card-hover: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.3s, color 0.3s;
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+
+  /* MARKETS TICKER */
+  .markets-bar {
+    background: var(--bg-ticker);
+    height: 36px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .markets-label {
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #4ade80;
+    padding: 0 20px;
+    font-family: 'JetBrains Mono', monospace;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .markets-track-wrapper { overflow: hidden; flex: 1; }
+  .markets-track {
+    display: flex;
+    animation: scrollMarkets 40s linear infinite;
+    white-space: nowrap;
+  }
+  .market-item {
+    flex-shrink: 0;
+    padding: 0 24px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(255,255,255,0.7);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .market-symbol { font-weight: 600; color: rgba(255,255,255,0.95); }
+  .market-price { color: rgba(255,255,255,0.6); }
+  .market-change { font-weight: 500; font-size: 11px; }
+  .market-change.up { color: #4ade80; }
+  .market-change.down { color: #f87171; }
+  @keyframes scrollMarkets {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* HEADER / MASTHEAD */
+  .header {
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-main);
+  }
+  .header-toolbar {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .edition-no {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+  }
+  .toolbar-actions { display: flex; align-items: center; gap: 6px; }
+  .toolbar-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid var(--border-main);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .toolbar-btn:hover { background: var(--bg-inset); color: var(--text-headline); }
+  .toolbar-btn.theme-toggle { width: 34px; padding: 6px; justify-content: center; }
+  .masthead {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 32px 32px;
+    text-align: center;
+  }
+  .masthead-rule {
+    height: 4px;
+    background: var(--text-headline);
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .masthead-rule::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--text-headline);
+  }
+  .masthead-title {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: clamp(42px, 7vw, 72px);
+    font-weight: 900;
+    color: var(--text-headline);
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .masthead-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .masthead-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 8px 0;
+    border-top: 1px solid var(--border-rule);
+    border-bottom: 1px solid var(--border-rule);
+    display: inline-block;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .masthead-greeting {
+    font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--text-secondary);
+    margin-top: 20px;
+  }
+  .view-toggle-container { display: flex; justify-content: center; margin-top: 24px; }
+  .view-toggle {
+    display: inline-flex;
+    background: var(--bg-inset);
+    border-radius: 8px;
+    padding: 4px;
+    border: 1px solid var(--border-main);
+  }
+  .view-btn {
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-secondary);
+    transition: all 0.25s;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .view-btn.active {
+    background: var(--bg-surface);
+    color: var(--text-headline);
+    box-shadow: var(--shadow-card);
+    font-weight: 600;
+  }
+  .masthead-rule-bottom {
+    max-width: 960px;
+    margin: 0 auto;
+    height: 3px;
+    background: var(--text-headline);
+    position: relative;
+  }
+  .masthead-rule-bottom::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border-rule);
+  }
+
+  /* MAIN */
+  .main { max-width: 960px; margin: 0 auto; padding: 40px 32px; }
+  .section { margin-bottom: 56px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .label-top { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+  .label-deals { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+  .label-land { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+  .label-meta { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+  .label-supplier { background: #fdf4ff; color: #a855f7; border: 1px solid #e9d5ff; }
+  .label-podcast { background: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe; }
+  .label-news { background: #ecfeff; color: #0891b2; border: 1px solid #a5f3fc; }
+  [data-theme="dark"] .label-top { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.25); }
+  [data-theme="dark"] .label-deals { background: rgba(22,163,74,0.12); border-color: rgba(22,163,74,0.25); }
+  [data-theme="dark"] .label-land { background: rgba(217,119,6,0.12); border-color: rgba(217,119,6,0.25); }
+  [data-theme="dark"] .label-meta { background: rgba(37,99,235,0.12); border-color: rgba(37,99,235,0.25); }
+  [data-theme="dark"] .label-supplier { background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.25); }
+  [data-theme="dark"] .label-podcast { background: rgba(124,58,237,0.12); border-color: rgba(124,58,237,0.25); }
+  [data-theme="dark"] .label-news { background: rgba(8,145,178,0.12); border-color: rgba(8,145,178,0.25); }
+  .section-rule { flex: 1; height: 1px; background: var(--border-rule); }
+  .section-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  /* STATS STRIP */
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border-main);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 56px;
+  }
+  .stat-cell {
+    background: var(--bg-surface);
+    padding: 20px 24px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .stat-cell:hover { background: var(--bg-surface-alt); }
+  .stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-headline);
+    letter-spacing: -1px;
+  }
+  .stat-delta { font-size: 11px; font-weight: 500; margin-top: 4px; font-family: 'JetBrains Mono', monospace; }
+  .delta-up { color: var(--accent-green); }
+  .delta-down { color: var(--accent-red); }
+
+  /* HERO STORY */
+  .hero-story {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 24px;
+    align-items: center;
+  }
+  .hero-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 50%, #a5b4fc 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    border: 1px solid var(--border-main);
+    position: relative;
+  }
+  .hero-image::after {
+    content: 'FEATURED';
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: var(--accent-red);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hero-tag {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent-red);
+    margin-bottom: 12px;
+  }
+  .hero-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--text-headline);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+  .hero-excerpt {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .story-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .story-source { font-weight: 600; color: var(--text-secondary); }
+  .story-meta a { color: inherit; text-decoration: none; }
+  .story-meta a:hover { color: var(--accent-blue); }
+  .meta-divider { width: 3px; height: 3px; border-radius: 50%; background: var(--text-muted); }
+
+  /* NEWS LIST */
+  .news-list { display: flex; flex-direction: column; }
+  .news-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    padding: 20px 16px;
+    border-bottom: 1px solid var(--border-light);
+    align-items: start;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .news-item:hover { background: var(--bg-surface-alt); }
+  .news-item:last-child { border-bottom: none; }
+  .news-number {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--border-rule);
+    line-height: 1;
+    width: 36px;
+    text-align: center;
+    padding-top: 2px;
+  }
+  .news-tag {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+  .tag-breaking { background: #fef2f2; color: #dc2626; }
+  .tag-deals { background: #f0fdf4; color: #16a34a; }
+  .tag-land { background: #fffbeb; color: #d97706; }
+  .tag-meta-partner { background: #eff6ff; color: #2563eb; }
+  .tag-supplier { background: #fdf4ff; color: #a855f7; }
+  .tag-infra { background: #ecfeff; color: #0891b2; }
+  .tag-energy { background: #fefce8; color: #a16207; }
+  .tag-sustainability { background: #f0fdf4; color: #15803d; }
+  [data-theme="dark"] .tag-breaking { background: rgba(220,38,38,0.15); }
+  [data-theme="dark"] .tag-deals { background: rgba(22,163,74,0.15); }
+  [data-theme="dark"] .tag-land { background: rgba(217,119,6,0.15); }
+  [data-theme="dark"] .tag-meta-partner { background: rgba(37,99,235,0.15); }
+  [data-theme="dark"] .tag-supplier { background: rgba(168,85,247,0.15); }
+  [data-theme="dark"] .tag-infra { background: rgba(8,145,178,0.15); }
+  [data-theme="dark"] .tag-energy { background: rgba(254,252,232,0.1); color: #fbbf24; }
+  [data-theme="dark"] .tag-sustainability { background: rgba(22,163,74,0.15); }
+  .news-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-headline);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .news-snippet {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .news-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    padding-top: 4px;
+  }
+
+  /* DEALS TABLE */
+  .deals-wrapper {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .deals-table { width: 100%; border-collapse: collapse; }
+  .deals-table thead th {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 2px solid var(--border-main);
+    background: var(--bg-surface-alt);
+    white-space: nowrap;
+  }
+  .deals-table tbody tr {
+    border-bottom: 1px solid var(--border-light);
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+  .deals-table tbody tr:last-child { border-bottom: none; }
+  .deals-table tbody tr:hover { background: var(--bg-surface-alt); }
+  .deals-table td { padding: 16px 20px; font-size: 14px; vertical-align: middle; }
+  .deals-table a { color: inherit; text-decoration: none; }
+  .deal-parties {
+    font-weight: 600;
+    color: var(--text-headline);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .deal-arrow { color: var(--text-muted); font-size: 11px; }
+  .deal-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--accent-green);
+  }
+  .deal-status {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .status-active { background: #f0fdf4; color: #16a34a; }
+  .status-pending { background: #fffbeb; color: #d97706; }
+  .status-closed { background: #eff6ff; color: #2563eb; }
+  .status-rumoured { background: #f5f3ff; color: #7c3aed; }
+  [data-theme="dark"] .status-active { background: rgba(22,163,74,0.12); }
+  [data-theme="dark"] .status-pending { background: rgba(217,119,6,0.12); }
+  [data-theme="dark"] .status-closed { background: rgba(37,99,235,0.12); }
+  [data-theme="dark"] .status-rumoured { background: rgba(124,58,237,0.12); }
+  .deal-type { font-size: 12px; color: var(--text-secondary); }
+  .filter-bar { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+  .filter-tab {
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--border-main);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .filter-tab:hover { border-color: var(--text-muted); color: var(--text-headline); }
+  .filter-tab.active { background: var(--text-headline); color: var(--bg-surface); border-color: var(--text-headline); }
+
+  /* LAND CARDS */
+  .land-list { display: flex; flex-direction: column; gap: 12px; }
+  .land-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .land-card:hover { border-color: var(--accent-amber); box-shadow: var(--shadow-card-hover); transform: translateY(-1px); }
+  .land-flag { font-size: 32px; text-align: center; line-height: 1; }
+  .land-location {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-headline);
+    margin-bottom: 2px;
+  }
+  .land-detail { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .land-specs { display: flex; flex-direction: column; gap: 4px; text-align: right; }
+  .land-spec { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); }
+  .land-spec strong { color: var(--text-headline); }
+
+  /* SUPPLIER CARDS */
+  .supplier-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .supplier-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .supplier-card:hover { border-color: var(--accent-violet); box-shadow: var(--shadow-card-hover); transform: translateY(-1px); }
+  .supplier-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .supplier-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #a855f7, #6366f1);
+  }
+  .supplier-name { font-size: 14px; font-weight: 600; color: var(--text-headline); }
+  .supplier-scope {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .supplier-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-headline);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .supplier-snippet { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* PARTNER CARDS */
+  .partners-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .partner-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+  }
+  .partner-card:hover { border-color: var(--accent-blue); box-shadow: var(--shadow-card-hover); transform: translateY(-1px); }
+  .partner-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+  .partner-name { font-size: 15px; font-weight: 600; color: var(--text-headline); margin-bottom: 2px; }
+  .partner-role {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .partner-update { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .partner-pulse {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-green);
+  }
+  .partner-pulse::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-green);
+    animation: pulse 2s ease-out infinite;
+    opacity: 0;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+
+  /* PODCASTS */
+  .podcast-list { display: flex; flex-direction: column; gap: 12px; }
+  .podcast-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 52px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .podcast-card:hover { border-color: var(--accent-violet); box-shadow: var(--shadow-card-hover); transform: translateY(-1px); }
+  .podcast-cover {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .podcast-show {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .podcast-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-headline);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .podcast-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .podcast-actions { display: flex; align-items: center; gap: 12px; }
+  .podcast-duration {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .play-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-violet);
+    background: transparent;
+    color: var(--accent-violet);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .play-btn:hover { background: var(--accent-violet); color: white; transform: scale(1.05); }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  /* FOOTER */
+  .footer {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px;
+    border-top: 3px solid var(--text-headline);
+  }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+  .footer-brand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-headline);
+  }
+  .footer-copy { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent-blue); }
+
+  /* BITE-SIZED */
+  .bite-sized .hero-story { display: none; }
+  .bite-sized .news-snippet { display: none; }
+  .bite-sized .news-item { padding: 12px 16px; }
+  .bite-sized .news-headline { font-size: 15px; }
+  .bite-sized .land-detail { display: none; }
+  .bite-sized .podcast-desc { display: none; }
+  .bite-sized .partner-update { display: none; }
+  .bite-sized .supplier-snippet { display: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    .hero-story { grid-template-columns: 1fr; }
+    .partners-grid, .supplier-grid { grid-template-columns: 1fr; }
+    .main { padding: 24px 20px; }
+    .masthead { padding: 24px 20px 20px; }
+    .header-toolbar { padding: 10px 20px; }
+    .masthead-title { font-size: 42px; }
+    .deals-wrapper { overflow-x: auto; }
+    .land-card { grid-template-columns: 1fr; }
+    .land-flag { display: none; }
+    .land-specs { flex-direction: row; gap: 12px; text-align: left; }
+    .podcast-card { grid-template-columns: 1fr auto; }
+    .podcast-cover { display: none; }
+  }
+  @media (max-width: 480px) {
+    .stats-strip { grid-template-columns: 1fr; }
+    .toolbar-actions .toolbar-btn:not(.theme-toggle) { display: none; }
+    .news-number { display: none; }
+    .news-item { grid-template-columns: 1fr auto; }
+  }
+
+  .anim-in { opacity: 0; transform: translateY(12px); }
+  .anim-in.visible { animation: slideIn 0.4s ease forwards; }
+  @keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<!-- MARKETS TICKER -->
+<div class="markets-bar">
+  <div class="markets-label">Markets</div>
+  <div class="markets-track-wrapper">
+    <div class="markets-track" id="marketsTrack">
+      {% for m in markets %}
+      <span class="market-item">
+        <span class="market-symbol">{{ m.symbol }}</span>
+        <span class="market-price">${{ "%.2f"|format(m.price) }}</span>
+        <span class="market-change {{ 'up' if m.change >= 0 else 'down' }}">{{ '&#8599;' if m.change >= 0 else '&#8600;' }} {{ "%+.2f"|format(m.change_pct) }}%</span>
+      </span>
+      {% endfor %}
+      {% for m in markets %}
+      <span class="market-item">
+        <span class="market-symbol">{{ m.symbol }}</span>
+        <span class="market-price">${{ "%.2f"|format(m.price) }}</span>
+        <span class="market-change {{ 'up' if m.change >= 0 else 'down' }}">{{ '&#8599;' if m.change >= 0 else '&#8600;' }} {{ "%+.2f"|format(m.change_pct) }}%</span>
+      </span>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-toolbar">
+    <span class="edition-no">NO. {{ edition_number }}</span>
+    <div class="toolbar-actions">
+      <button class="toolbar-btn" title="Share" onclick="navigator.share?.({title:'DC Morning Brief',url:location.href})">&#128279; Share</button>
+      <button class="toolbar-btn theme-toggle" onclick="toggleTheme()" title="Toggle theme" id="themeBtn">&#9789;</button>
+    </div>
+  </div>
+  <div class="masthead">
+    <div class="masthead-rule"></div>
+    <h1 class="masthead-title">DC Morning Brief</h1>
+    <p class="masthead-subtitle">Your daily data centre industry intelligence</p>
+    <div class="masthead-date">{{ date_display }}</div>
+    <p class="masthead-greeting"><em>{{ greeting }}. Here's what's moving the industry today.</em></p>
+    <div class="view-toggle-container">
+      <div class="view-toggle">
+        <button class="view-btn active" onclick="setView('full', this)">&#128196; Full Brief</button>
+        <button class="view-btn" onclick="setView('bite', this)">&#9889; Bite-Sized</button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="masthead-rule-bottom"></div>
+
+<main class="main" id="mainContent">
+
+  <!-- STATS -->
+  <div class="stats-strip anim-in">
+    <div class="stat-cell">
+      <div class="stat-label">Stories Today</div>
+      <div class="stat-value">{{ total_stories }}</div>
+      <div class="stat-delta delta-up">across {{ feed_count }} sources</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Deals &amp; M&amp;A</div>
+      <div class="stat-value">{{ deals|length }}</div>
+      <div class="stat-delta">stories today</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Supplier Mentions</div>
+      <div class="stat-value">{{ supplier_news|length }}</div>
+      <div class="stat-delta">Meta suppliers in news</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Last Updated</div>
+      <div class="stat-value">{{ update_time }}</div>
+      <div class="stat-delta">{{ update_date }}</div>
+    </div>
+  </div>
+
+  <!-- TOP STORIES -->
+  {% if top_stories %}
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-top">&#9889; Top Stories</span>
+      <div class="section-rule"></div>
+      <span class="section-count">{{ top_stories|length }} stories</span>
+    </div>
+
+    {% if top_stories|length > 0 %}
+    <div class="hero-story anim-in">
+      <div class="hero-image">&#127967;</div>
+      <div class="hero-content">
+        <div class="hero-tag">&#9679; Top Story</div>
+        <h2 class="hero-headline">{{ top_stories[0].title }}</h2>
+        <p class="hero-excerpt">{{ top_stories[0].summary }}</p>
+        <div class="story-meta">
+          <a href="{{ top_stories[0].link }}" target="_blank" rel="noopener"><span class="story-source">{{ top_stories[0].source }}</span></a>
+          <span class="meta-divider"></span>
+          <span>{{ top_stories[0].time_ago }}</span>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if top_stories|length > 1 %}
+    <div class="news-list anim-in">
+      {% for story in top_stories[1:] %}
+      <a class="news-item" href="{{ story.link }}" target="_blank" rel="noopener">
+        <div class="news-number">{{ loop.index + 1 }}</div>
+        <div class="news-body">
+          <span class="news-tag tag-{{ story.tag_class }}">{{ story.category }}</span>
+          <div class="news-headline">{{ story.title }}</div>
+          <div class="news-snippet">{{ story.summary }}</div>
+        </div>
+        <div class="news-time">{{ story.time_ago }}</div>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  <!-- DEALS & M&A -->
+  {% if deals %}
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-deals">&#128200; Deals &amp; M&amp;A</span>
+      <div class="section-rule"></div>
+      <span class="section-count">{{ deals|length }} stories</span>
+    </div>
+    <div class="news-list anim-in">
+      {% for story in deals %}
+      <a class="news-item" href="{{ story.link }}" target="_blank" rel="noopener">
+        <div class="news-number">{{ loop.index }}</div>
+        <div class="news-body">
+          <span class="news-tag tag-deals">Deal</span>
+          <div class="news-headline">{{ story.title }}</div>
+          <div class="news-snippet">{{ story.summary }}</div>
+        </div>
+        <div class="news-time">{{ story.source }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- LAND & DEVELOPMENT -->
+  {% if land %}
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-land">&#127759; Land &amp; Development</span>
+      <div class="section-rule"></div>
+      <span class="section-count">{{ land|length }} stories</span>
+    </div>
+    <div class="news-list anim-in">
+      {% for story in land %}
+      <a class="news-item" href="{{ story.link }}" target="_blank" rel="noopener">
+        <div class="news-number">{{ loop.index }}</div>
+        <div class="news-body">
+          <span class="news-tag tag-land">Land</span>
+          <div class="news-headline">{{ story.title }}</div>
+          <div class="news-snippet">{{ story.summary }}</div>
+        </div>
+        <div class="news-time">{{ story.source }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- META SUPPLIER NEWS -->
+  {% if supplier_news %}
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-supplier">&#127981; Meta Supplier Watch</span>
+      <div class="section-rule"></div>
+      <span class="section-count">{{ supplier_news|length }} mentions</span>
+    </div>
+    <div class="supplier-grid anim-in">
+      {% for story in supplier_news %}
+      <a class="supplier-card" href="{{ story.link }}" target="_blank" rel="noopener">
+        <div class="supplier-card-header">
+          <div class="supplier-icon">{{ story.supplier_initials }}</div>
+          <div>
+            <div class="supplier-name">{{ story.matched_supplier }}</div>
+            <div class="supplier-scope">{{ story.supplier_scope }}</div>
+          </div>
+        </div>
+        <div class="supplier-headline">{{ story.title }}</div>
+        <div class="supplier-snippet">{{ story.summary }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- INDUSTRY NEWS -->
+  {% if industry_news %}
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-news">&#128240; Industry Roundup</span>
+      <div class="section-rule"></div>
+      <span class="section-count">{{ industry_news|length }} stories</span>
+    </div>
+    <div class="news-list anim-in">
+      {% for story in industry_news %}
+      <a class="news-item" href="{{ story.link }}" target="_blank" rel="noopener">
+        <div class="news-number">{{ loop.index }}</div>
+        <div class="news-body">
+          <span class="news-tag tag-infra">News</span>
+          <div class="news-headline">{{ story.title }}</div>
+          <div class="news-snippet">{{ story.summary }}</div>
+        </div>
+        <div class="news-time">{{ story.source }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- PODCASTS -->
+  {% if podcasts %}
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-podcast">&#127911; Podcast Picks</span>
+      <div class="section-rule"></div>
+      <span class="section-count">{{ podcasts|length }} episodes</span>
+    </div>
+    <div class="podcast-list anim-in">
+      {% for pod in podcasts %}
+      <a class="podcast-card" href="{{ pod.link }}" target="_blank" rel="noopener">
+        <div class="podcast-cover" style="background: linear-gradient(135deg, {{ pod.color_from }}, {{ pod.color_to }});">&#127897;</div>
+        <div class="podcast-info">
+          <div class="podcast-show">{{ pod.show }}</div>
+          <div class="podcast-title">{{ pod.title }}</div>
+          <div class="podcast-desc">{{ pod.summary }}</div>
+        </div>
+        <div class="podcast-actions">
+          {% if pod.duration %}<span class="podcast-duration">{{ pod.duration }}</span>{% endif %}
+          <button class="play-btn" title="Play">&#9654;</button>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">DC Morning Brief</div>
+      <div class="footer-copy">&copy; 2026 &mdash; Data centre intelligence, delivered daily. Auto-generated from RSS feeds.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">Archive</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('themeBtn').textContent = isDark ? '\u263D' : '\u2600';
+    localStorage.setItem('dcbrief-theme', isDark ? 'light' : 'dark');
+  }
+  const saved = localStorage.getItem('dcbrief-theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('themeBtn').textContent = '\u2600';
+  }
+  function setView(mode, btn) {
+    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const main = document.getElementById('mainContent');
+    if (mode === 'bite') { main.classList.add('bite-sized'); } else { main.classList.remove('bite-sized'); }
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.anim-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
