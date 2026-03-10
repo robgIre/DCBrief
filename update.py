@@ -38,13 +38,17 @@ RSS_FEEDS = [
     {"url": "https://www.datacentermap.com/feed/", "name": "DatacenterMap"},
     {"url": "https://siliconangle.com/category/datacenter/feed/", "name": "SiliconANGLE"},
     {"url": "https://www.servethehome.com/feed/", "name": "ServeTheHome"},
+    {"url": "https://www.datacenters.com/news/rss", "name": "Datacenters.com"},
+    {"url": "https://www.constructiondive.com/feeds/news/", "name": "Construction Dive"},
 ]
 
 # Podcast RSS feeds
 PODCAST_FEEDS = [
-    {"url": "https://feeds.buzzsprout.com/2003089.rss", "name": "The Data Center Podcast"},
-    {"url": "https://anchor.fm/s/e2014a8c/podcast/rss", "name": "Infrastructure Investor"},
-    {"url": "https://feeds.simplecast.com/lKmQFGMK", "name": "Datacenter Frontier Podcast"},
+    {"url": "https://feeds.megaphone.fm/ROAM7120986792", "name": "Utilizing Tech"},
+    {"url": "https://feeds.transistor.fm/data-center-podcast", "name": "Data Center Podcast"},
+    {"url": "https://feeds.megaphone.fm/datacenterworld", "name": "Data Center World"},
+    {"url": "https://anchor.fm/s/5e2a4f00/podcast/rss", "name": "DC Frontier Podcast"},
+    {"url": "https://www.spreaker.com/show/5765098/episodes/feed", "name": "Uptime Institute"},
 ]
 
 # Stock tickers to track
@@ -65,6 +69,14 @@ PODCAST_COLORS = [
 # ---------------------------------------------------------------------------
 # META SUPPLIERS — tracked for dedicated "Supplier Watch" section
 # ---------------------------------------------------------------------------
+
+# Short supplier names that need word-boundary matching to avoid false positives
+# e.g. "IES" must not match "companies", "technologies", "facilities"
+SHORT_SUPPLIER_NAMES = {
+    "DPR", "IES", "FTI", "HDR", "WPI", "MPS", "HITT",
+    "Turner", "Holder", "Stoner", "Arup", "Syska",
+    "Southland", "Mortenson", "Clayco",
+}
 
 META_SUPPLIERS = {
     # General Contractors (GC)
@@ -204,11 +216,15 @@ def matches_keywords(text, keywords):
 
 def find_matched_supplier(text):
     """Check if text mentions any Meta supplier. Returns (supplier_name, info) or None."""
-    text_lower = text.lower()
     # Sort by length descending to match longer names first
     for name in sorted(META_SUPPLIERS.keys(), key=len, reverse=True):
-        if name.lower() in text_lower:
-            return name, META_SUPPLIERS[name]
+        # Use word boundary matching for short/ambiguous names
+        if name in SHORT_SUPPLIER_NAMES:
+            if re.search(r'\b' + re.escape(name) + r'\b', text, re.IGNORECASE):
+                return name, META_SUPPLIERS[name]
+        else:
+            if name.lower() in text.lower():
+                return name, META_SUPPLIERS[name]
     return None, None
 
 
