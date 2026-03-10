@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DC Morning Brief — Data Centre Daily Intelligence</title>
+<title>DC Morning Brief — Daily Data Centre Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -280,6 +280,7 @@
   .label-supplier { background: #fdf4ff; color: #a855f7; border: 1px solid #e9d5ff; }
   .label-podcast { background: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe; }
   .label-news { background: #ecfeff; color: #0891b2; border: 1px solid #a5f3fc; }
+  .label-ai { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
   [data-theme="dark"] .label-top { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.25); }
   [data-theme="dark"] .label-deals { background: rgba(22,163,74,0.12); border-color: rgba(22,163,74,0.25); }
   [data-theme="dark"] .label-land { background: rgba(217,119,6,0.12); border-color: rgba(217,119,6,0.25); }
@@ -1018,6 +1019,54 @@
         </div>
         <div class="supplier-headline">{{ story.title }}</div>
         <div class="supplier-snippet">{{ story.summary }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- AI & COMPUTE -->
+  {% if ai_news %}
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-news">&#129302; AI &amp; Compute</span>
+      <div class="section-rule"></div>
+      <span class="section-count">{{ ai_news|length }} stories</span>
+    </div>
+    <div class="news-list anim-in">
+      {% for story in ai_news %}
+      <a class="news-item" href="{{ story.link }}" target="_blank" rel="noopener">
+        <div class="news-number">{{ loop.index }}</div>
+        <div class="news-body">
+          <span class="news-tag tag-infra">AI</span>
+          <div class="news-headline">{{ story.title }}</div>
+          <div class="news-snippet">{{ story.summary }}</div>
+        </div>
+        <div class="news-time">{{ story.source }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- META NEWS -->
+  {% if meta_news %}
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label label-meta">&#127775; Meta DC News</span>
+      <div class="section-rule"></div>
+      <span class="section-count">{{ meta_news|length }} stories</span>
+    </div>
+    <div class="news-list anim-in">
+      {% for story in meta_news %}
+      <a class="news-item" href="{{ story.link }}" target="_blank" rel="noopener">
+        <div class="news-number">{{ loop.index }}</div>
+        <div class="news-body">
+          <span class="news-tag tag-meta-partner">Meta</span>
+          <div class="news-headline">{{ story.title }}</div>
+          <div class="news-snippet">{{ story.summary }}</div>
+        </div>
+        <div class="news-time">{{ story.source }}</div>
       </a>
       {% endfor %}
     </div>

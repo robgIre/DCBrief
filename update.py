@@ -73,45 +73,51 @@ PODCAST_COLORS = [
 # Short supplier names that need word-boundary matching to avoid false positives
 # e.g. "IES" must not match "companies", "technologies", "facilities"
 SHORT_SUPPLIER_NAMES = {
-    "DPR", "IES", "FTI", "HDR", "WPI", "MPS", "HITT",
-    "Turner", "Holder", "Stoner", "Arup", "Syska",
-    "Southland", "Mortenson", "Clayco",
+    "DPR", "FTI", "HDR", "WPI", "MPS", "HITT",
+    "Arup", "Syska",
 }
+
+# These names are TOO short/ambiguous even with word boundaries — only match longer forms
+# "IES" removed (matches too many words), use "IES Holdings" or "IES Commercial" instead
+# "Turner" removed (too common a surname), use "Turner Construction" instead
+# "Holder" removed (common English word), use "Holder Construction" instead
+# "Stoner" removed (ambiguous), use "Stoner Electric" instead
+# "Southland" removed (common place name), use "Southland Industries" instead
+# "Mortenson" removed (common surname), use "M.A. Mortenson" or full name only
+# "Clayco" kept (unique enough)
+# "Black Box" removed (common phrase), use "Black Box Network" instead
+# "Direct Line" removed (common phrase / UK insurance company)
 
 META_SUPPLIERS = {
     # General Contractors (GC)
-    "DPR": {"scope": "General Contractor", "initials": "DP"},
     "DPR Construction": {"scope": "General Contractor", "initials": "DP"},
+    "DPR": {"scope": "General Contractor", "initials": "DP"},
     "Fortis Construction": {"scope": "General Contractor", "initials": "FC"},
     "Fortis SGA": {"scope": "General Contractor", "initials": "FS"},
     "Hensel Phelps": {"scope": "General Contractor", "initials": "HP"},
     "Turner Construction": {"scope": "General Contractor", "initials": "TC"},
-    "Turner": {"scope": "General Contractor", "initials": "TC"},
     "Je Dunn": {"scope": "General Contractor", "initials": "JD"},
     "JE Dunn": {"scope": "General Contractor", "initials": "JD"},
-    "Mortenson": {"scope": "General Contractor", "initials": "MO"},
     "M.A. Mortenson": {"scope": "General Contractor", "initials": "MO"},
+    "Mortenson Construction": {"scope": "General Contractor", "initials": "MO"},
     "Clayco": {"scope": "General Contractor", "initials": "CL"},
     "Hitt Contracting": {"scope": "General Contractor", "initials": "HT"},
     "HITT": {"scope": "General Contractor", "initials": "HT"},
     "Holder Construction": {"scope": "General Contractor", "initials": "HC"},
-    "Holder": {"scope": "General Contractor", "initials": "HC"},
     # Trade Contractors (TC)
     "IES Holdings": {"scope": "Trade Contractor", "initials": "IE"},
-    "IES": {"scope": "Trade Contractor", "initials": "IE"},
+    "IES Commercial": {"scope": "Trade Contractor", "initials": "IE"},
+    "IES Communications": {"scope": "Trade Contractor", "initials": "IE"},
     "E2 Optics": {"scope": "Trade Contractor", "initials": "E2"},
-    "Direct Line": {"scope": "Trade Contractor", "initials": "DL"},
-    "Black Box": {"scope": "Trade Contractor", "initials": "BB"},
     "Black Box Network": {"scope": "Trade Contractor", "initials": "BB"},
+    "Black Box Corporation": {"scope": "Trade Contractor", "initials": "BB"},
     "Stoner Electric": {"scope": "Trade Contractor", "initials": "SE"},
-    "Stoner": {"scope": "Trade Contractor", "initials": "SE"},
     "MP Nexlevel": {"scope": "Trade Contractor", "initials": "MP"},
     "Team Linx": {"scope": "Trade Contractor", "initials": "TL"},
     # Integrators
     "FTI": {"scope": "Integrator", "initials": "FT"},
     "MC Dean": {"scope": "Integrator", "initials": "MC"},
     "Southland Industries": {"scope": "Integrator", "initials": "SI"},
-    "Southland": {"scope": "Integrator", "initials": "SI"},
     "McKinstry": {"scope": "Integrator", "initials": "MK"},
     "Mckinstry": {"scope": "Integrator", "initials": "MK"},
     "US Engineering": {"scope": "Integrator", "initials": "US"},
@@ -121,8 +127,8 @@ META_SUPPLIERS = {
     # Engineers of Record (EOR)
     "AlfaTech": {"scope": "Engineer of Record", "initials": "AT"},
     "Stantec": {"scope": "Engineer of Record", "initials": "ST"},
-    "HDR": {"scope": "Engineer of Record", "initials": "HD"},
     "HDR Inc": {"scope": "Engineer of Record", "initials": "HD"},
+    "HDR": {"scope": "Engineer of Record", "initials": "HD"},
     "Syska Hennessy": {"scope": "Engineer of Record", "initials": "SH"},
     "Syska": {"scope": "Engineer of Record", "initials": "SH"},
     "Arup": {"scope": "Engineer of Record", "initials": "AR"},
@@ -130,23 +136,68 @@ META_SUPPLIERS = {
 
 # Keywords for categorisation
 DEALS_KEYWORDS = [
-    "acquisition", "acquire", "acquired", "merger", "merge", "deal",
-    "fund", "investment", "invest", "buyout", "stake", "purchase",
-    "financing", "billion", "million", "capital", "valuation",
-    "joint venture", "partnership", "IPO", "SPAC", "private equity",
+    "acquisition", "acquire", "acquired", "merger", "merge",
+    "buyout", "stake", "purchase", "takeover", "take over",
+    "private equity", "joint venture", "IPO", "SPAC",
+    "raises", "raised", "funding round", "series ",
+    "closes fund", "closed fund", "capital raise",
 ]
 
 LAND_KEYWORDS = [
-    "land", "site", "campus", "acres", "hectares", "build",
-    "construction", "planning permission", "groundbreaking",
-    "development", "facility", "megawatt", "MW capacity",
-    "new data center", "new data centre", "expansion",
-    "zoning", "permit", "broke ground",
+    "land acquisition", "land deal", "land purchase",
+    "acres", "hectares", "campus",
+    "groundbreaking", "broke ground", "break ground",
+    "planning permission", "zoning approval", "zoning permit",
+    "new data center", "new data centre",
+    "data center construction", "data centre construction",
+    "data center site", "data centre site",
+    "data center campus", "data centre campus",
+    "data center development", "data centre development",
+    "data center expansion", "data centre expansion",
+    "data center facility", "data centre facility",
+    "hyperscale campus", "hyperscale facility",
+    "megawatt campus", "MW campus",
+]
+
+AI_KEYWORDS = [
+    "artificial intelligence", "AI model", "AI training",
+    "AI infrastructure", "AI chip", "AI accelerator",
+    "GPU cluster", "GPU capacity", "GPU server",
+    "large language model", "LLM", "generative AI",
+    "machine learning infrastructure",
+    "NVIDIA H100", "NVIDIA H200", "NVIDIA B200", "NVIDIA GB200",
+    "AI workload", "AI compute", "AI factory",
+    "inference", "training cluster",
+    "neural network", "foundation model",
 ]
 
 META_KEYWORDS = [
-    "Meta ", "Meta's", "Facebook", "Instagram infrastructure",
-    "Zuckerberg", "Meta Platforms", "Meta AI",
+    "Meta data center", "Meta data centre",
+    "Meta campus", "Meta hyperscale", "Meta infrastructure",
+    "Meta AI", "Meta Platforms", "Meta LLC",
+    "Zuckerberg data", "Zuckerberg AI",
+    "Llama model", "Llama 4",
+]
+
+# Relevance filter — articles must match at least one of these to be included at all
+# This ensures we only show news pertinent to the DC world
+DC_RELEVANCE_KEYWORDS = [
+    "data center", "data centre", "datacenter", "datacentre",
+    "hyperscale", "colocation", "colo ", "colo-",
+    "server farm", "cloud infrastructure",
+    "rack", "cooling", "liquid cooling", "immersion cooling",
+    "power density", "megawatt", " MW ", "gigawatt", " GW ",
+    "UPS ", "uninterruptible", "generator", "power grid",
+    "fiber", "fibre", "interconnect", "network fabric",
+    "GPU", "AI chip", "AI training", "AI infrastructure",
+    "NVIDIA", "AMD EPYC", "Intel Xeon",
+    "Equinix", "Digital Realty", "CyrusOne", "QTS",
+    "EdgeConneX", "Vantage", "CoreSite", "Switch",
+    "Meta data", "Meta campus", "Meta AI",
+    "cloud computing", "AWS", "Azure", "Google Cloud",
+    "construction", "modular", "prefab",
+    "renewable energy", "sustainability", "carbon",
+    "nuclear power", "PPA ", "power purchase",
 ]
 
 
@@ -375,28 +426,47 @@ def fetch_stock_data():
 # CATEGORISATION
 # ---------------------------------------------------------------------------
 
+def is_dc_relevant(text):
+    """Check if an article is relevant to the data centre industry."""
+    return matches_keywords(text, DC_RELEVANCE_KEYWORDS)
+
+
 def categorise_articles(articles):
-    """Sort articles into categories based on keyword matching."""
-    top_stories = []
+    """Sort articles into categories. Each article appears in ONE section only."""
+    supplier_news = []
+    meta_news = []
     deals = []
     land = []
-    supplier_news = []
+    ai_news = []
     industry_news = []
 
-    seen_titles = set()
+    used_titles = set()  # Track titles to prevent ANY duplicates
 
+    # First pass: filter to DC-relevant articles only
+    relevant_articles = []
     for article in articles:
         title = article["title"]
-        # Deduplicate
-        if title in seen_titles:
+        if title in used_titles:
             continue
-        seen_titles.add(title)
+        full_text = f"{title} {article['summary']}"
+        # Articles from DC-specific feeds (DatacenterDynamics, etc.) are always relevant
+        dc_feeds = {"DatacenterDynamics", "Data Center Knowledge", "Datacenter Frontier",
+                     "BroadGroup", "DatacenterMap", "Datacenters.com", "Uptime Institute"}
+        if article["source"] in dc_feeds or is_dc_relevant(full_text):
+            relevant_articles.append(article)
+
+    # Second pass: categorise into sections (priority order, each article used ONCE)
+    for article in relevant_articles:
+        title = article["title"]
+        if title in used_titles:
+            continue
 
         full_text = f"{title} {article['summary']}"
 
-        # Check for Meta supplier mention
+        # 1. Check for Meta supplier mention (highest priority)
         supplier_name, supplier_info = find_matched_supplier(full_text)
         if supplier_name:
+            used_titles.add(title)
             article["matched_supplier"] = supplier_name
             article["supplier_scope"] = supplier_info["scope"]
             article["supplier_initials"] = supplier_info["initials"]
@@ -405,49 +475,67 @@ def categorise_articles(articles):
             supplier_news.append(article)
             continue
 
-        # Check for deals/M&A
+        # 2. Check for Meta-related news
+        if matches_keywords(full_text, META_KEYWORDS):
+            used_titles.add(title)
+            article["category"] = "Meta"
+            article["tag_class"] = "meta-partner"
+            meta_news.append(article)
+            continue
+
+        # 3. Check for deals/M&A
         if matches_keywords(full_text, DEALS_KEYWORDS):
+            used_titles.add(title)
             article["category"] = "Deal"
             article["tag_class"] = "deals"
             deals.append(article)
             continue
 
-        # Check for land/development
+        # 4. Check for land/construction
         if matches_keywords(full_text, LAND_KEYWORDS):
+            used_titles.add(title)
             article["category"] = "Land"
             article["tag_class"] = "land"
             land.append(article)
             continue
 
-        # Check for Meta-related
-        if matches_keywords(full_text, META_KEYWORDS):
-            article["category"] = "Meta"
-            article["tag_class"] = "meta-partner"
-            top_stories.append(article)
+        # 5. Check for AI & compute
+        if matches_keywords(full_text, AI_KEYWORDS):
+            used_titles.add(title)
+            article["category"] = "AI"
+            article["tag_class"] = "infra"
+            ai_news.append(article)
             continue
 
-        # Default to industry news
+        # 6. Everything else goes to industry news
+        used_titles.add(title)
         article["category"] = "Industry"
         article["tag_class"] = "infra"
         industry_news.append(article)
 
-    # If we don't have enough top stories, promote from other categories
-    if len(top_stories) < 5:
-        # Take the most recent articles overall as top stories
-        remaining_needed = 5 - len(top_stories)
-        all_other = deals[:1] + land[:1] + industry_news[:remaining_needed]
-        for a in all_other:
-            if a not in top_stories:
-                top_stories.append(a)
-                if len(top_stories) >= 5:
-                    break
+    # Build top stories from the best of each category (no duplicates)
+    top_stories = []
+    # Take 1-2 from each populated category for the top stories section
+    for source_list in [meta_news, deals, land, ai_news, supplier_news, industry_news]:
+        if source_list and source_list[0] not in top_stories:
+            top_stories.append(source_list[0])
+        if len(top_stories) >= 5:
+            break
+    # Fill remaining from industry news
+    for a in industry_news:
+        if a not in top_stories:
+            top_stories.append(a)
+            if len(top_stories) >= 5:
+                break
 
     return {
-        "top_stories": top_stories[:8],
-        "deals": deals[:10],
+        "top_stories": top_stories[:6],
+        "deals": deals[:8],
         "land": land[:8],
-        "supplier_news": supplier_news[:12],
-        "industry_news": industry_news[:10],
+        "ai_news": ai_news[:8],
+        "supplier_news": supplier_news[:10],
+        "meta_news": meta_news[:6],
+        "industry_news": industry_news[:8],
     }
 
 
@@ -502,6 +590,8 @@ def generate_html(categories, markets, podcasts, edition_number):
     print(f"  Top stories: {len(categories['top_stories'])}")
     print(f"  Deals: {len(categories['deals'])}")
     print(f"  Land: {len(categories['land'])}")
+    print(f"  AI & Compute: {len(categories['ai_news'])}")
+    print(f"  Meta news: {len(categories['meta_news'])}")
     print(f"  Supplier mentions: {len(categories['supplier_news'])}")
     print(f"  Industry news: {len(categories['industry_news'])}")
     print(f"  Podcasts: {len(podcasts)}")
